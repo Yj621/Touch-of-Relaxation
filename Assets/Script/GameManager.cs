@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class GameManager : MonoBehaviour
 {
     private GameObject[] garbageSpawnPoints;
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(touchPos);
                 Physics.Raycast(ray, out hit);
 
-                if (hit.collider != null && hit.collider.tag == "TouchPossible")
+                if (hit.collider != null && (hit.collider.tag == "TouchPossible" || hit.collider.tag == "ArriveTarget")) 
                 {
                     GameObject CurrentTouch = hit.transform.gameObject;
                     Debug.Log(CurrentTouch.gameObject.name);

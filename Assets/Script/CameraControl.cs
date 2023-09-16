@@ -71,7 +71,7 @@ public class CameraControl : MonoBehaviour
     private void Init()
     {
         mainCamera = this.GetComponent<Camera>();
-        cameraMoveSpeed = 1f;
-        cameraZoomSpeed = 1f;
+        cameraMoveSpeed = 3;
+        cameraZoomSpeed = 3f;
     }
 }
