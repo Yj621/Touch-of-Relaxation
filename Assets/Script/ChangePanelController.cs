@@ -1,67 +1,84 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems; 
 
 public class ChangePanelController : MonoBehaviour
 {
-    private GameObject popUpPanel; // PopUp 패널
-    private GameObject goldWindowPanel; // Gold_Window 패널
-    private GameObject diaWindowPanel; // Dia_Window 패널
-    public bool PanelOn = false;
+    private GameObject[] panels; // 패널들 배열
+    public bool panelOn = false;
 
     private void Start()
     {
-        // 게임 시작 시 패널들을 이름을 사용하여 찾아서 비활성화
-        popUpPanel = GameObject.Find("PopUp");
-        goldWindowPanel = GameObject.Find("Gold_Window");
-        diaWindowPanel = GameObject.Find("Dia_Window");
+        panels = new GameObject[]
+        {
+            GameObject.Find("PopUp"),
+            GameObject.Find("Gold_Window"),
+            GameObject.Find("Dia_Window")
+        };
 
         // 초기에는 모든 패널을 비활성화
-        popUpPanel.SetActive(false);
-        goldWindowPanel.SetActive(false);
-        diaWindowPanel.SetActive(false);
+        foreach (var panel in panels)
+        {
+            panel.SetActive(false);
+        }
+    }
+
+    private void TogglePanel(GameObject panel)
+    {
+        if (panel.activeSelf)
+        {
+            panel.SetActive(false);
+            panelOn = false;
+        }
+        else
+        {
+            panel.SetActive(true);
+            panelOn = true;
+        }
     }
 
     public void GoldButtonClick()
     {
-        if (popUpPanel.activeSelf)
-        {
-            PopUpPanelFalse();
-        }
-        goldWindowPanel.SetActive(true);
-        PanelOn = true;
+        TogglePanel(panels[1]); // Gold_Window 패널 토글
+        PopUpPanelFalse();
+        panelOn = true;
     }
 
     public void DiaButtonClick()
     {
-        if (popUpPanel.activeSelf)
-        {
-            PopUpPanelFalse();
-            Debug.Log("Dias");
-        }
-        diaWindowPanel.SetActive(true);
-        PanelOn = true;
+        TogglePanel(panels[2]); // Dia_Window 패널 토글
+        Debug.Log("Dias");
+        PopUpPanelFalse();
+        panelOn = true;
+    }
+
+    public void DiaWindowClose()
+    {
+        panels[2].SetActive(false); // Dia_Window 패널 닫기
+        panelOn = false;
+    }
+
+    public void GoldWindowClose()
+    {
+        panels[1].SetActive(false); // Gold_Window 패널 닫기
+        panelOn = false;
     }
 
     public void PopUpPanelFalse()
     {
-        if (popUpPanel.activeSelf)
+        if (panels[0].activeSelf)
         {
-            popUpPanel.SetActive(false);
-            PanelOn = false;
-            Debug.Log(PanelOn);
+            panels[0].SetActive(false); // PopUp 패널 닫기
+            panelOn = false;
+            Debug.Log("panelOn: " +panelOn);
         }
     }
 
     public void PopUpPanelTrue()
     {
-        popUpPanel.SetActive(true);
-        PanelOn = true;
-    }
-    public void PopUpPanelClose()
-    {
-        popUpPanel.SetActive(false);
+        panels[0].SetActive(true); // PopUp 패널 열기
+        panelOn = true;
     }
 }
