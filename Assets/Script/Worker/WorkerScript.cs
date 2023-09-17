@@ -8,7 +8,7 @@ public class WorkerScript : MonoBehaviour
     private NavMeshAgent workerNav;
 
     public bool isHaveGarbage;
-    public bool isGorFactory;
+    public bool isGoFactory;
     public bool isGoOut;
 
     private Transform outTarget;
@@ -21,7 +21,7 @@ public class WorkerScript : MonoBehaviour
 
         isHaveGarbage = false;
         isGoOut = false;
-        isGorFactory = false;
+        isGoFactory = false;
 
         outTarget = GameObject.FindGameObjectWithTag("OutTarget").transform;
         arriveTarget = GameObject.FindGameObjectWithTag("ArriveTarget").transform;
@@ -32,9 +32,8 @@ public class WorkerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.gameObject.activeInHierarchy && isHaveGarbage && isGorFactory)
+        if (this.gameObject.activeInHierarchy && isHaveGarbage && isGoFactory)
         {
-            isGorFactory = false;
             GoFactory();
         }
     }
@@ -42,6 +41,7 @@ public class WorkerScript : MonoBehaviour
     public void GoFactory()
     {
         workerNav.SetDestination(arriveTarget.position);
+        isGoFactory = false; 
     }
     public void GoOut()
     {
@@ -65,6 +65,14 @@ public class WorkerScript : MonoBehaviour
     {
         isGoOut = i;
     }
+    public bool IsGoFactory()
+    {
+        return isGoFactory;
+    }
+    public void IsGoFactory(bool i)
+    {
+        isGoFactory = i;
+    }
 
 
     private void OnTriggerEnter(Collider collision)
@@ -80,7 +88,7 @@ public class WorkerScript : MonoBehaviour
         //나가는 콜라이더에 걸림(나갔다 오면 쓰레기를 가져옴)
         if (collision.gameObject.tag == "OutTarget" && !isHaveGarbage)
         {
-            isGorFactory = true;
+            isGoFactory = true;
             isHaveGarbage = true;
             isGoOut = true;
         }

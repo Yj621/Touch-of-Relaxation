@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 
 
 public class GameManager : MonoBehaviour
@@ -26,8 +26,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ObjectSelect();
-
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            ObjectSelect();
+        }
     }
 
     private void SpawnGarbage()

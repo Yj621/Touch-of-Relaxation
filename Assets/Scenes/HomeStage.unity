@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1829996, g: 0.22868465, b: 0.30678758, a: 1}
+  m_IndirectSpecularColor: {r: 0.183, g: 0.22868529, b: 0.30678868, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2682,7 +2682,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1106789435}
         m_TargetAssemblyTypeName: ChangePanelController, Assembly-CSharp
-        m_MethodName: PopUpPanelClose
+        m_MethodName: PopUpPanelFalse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9329,7 +9329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHaveGarbage: 0
-  isGorFactory: 0
+  isGoFactory: 0
   isGoOut: 0
 --- !u!1001 &530008856
 PrefabInstance:

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraControl : MonoBehaviour
 {
@@ -18,15 +19,18 @@ public class CameraControl : MonoBehaviour
 
     void Update()
     {
-        //손가락 하나가 눌렸을 때 -> 화면 이동
-        if (Input.touchCount == 1)
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            CameraMove();
-        }
-       //손가락 두개가 눌렸을 때 -> 줌인 줌 아웃
-       else if(Input.touchCount == 2)
-        {
-            CameraZoomInOut();
+            //손가락 하나가 눌렸을 때 -> 화면 이동
+            if (Input.touchCount == 1)
+            {
+                CameraMove();
+            }
+            //손가락 두개가 눌렸을 때 -> 줌인 줌 아웃
+            else if (Input.touchCount == 2)
+            {
+                CameraZoomInOut();
+            }
         }
     }
 

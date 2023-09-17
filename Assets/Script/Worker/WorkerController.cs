@@ -47,6 +47,7 @@ public class WorkerController : MonoBehaviour
 
     private IEnumerator WorkerBack(WorkerScript w)
     {
+        w.IsGoFactory(true);
         yield return new WaitForSeconds(1f);
         w.IsGoOut(false);
 
