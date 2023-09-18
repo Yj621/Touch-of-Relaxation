@@ -1,84 +1,80 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems; 
 
 public class ChangePanelController : MonoBehaviour
 {
-    private GameObject[] panels; // 패널들 배열
-    public bool panelOn = false;
+    private GameObject popUpPanel; // PopUp 패널
+    private GameObject changeWindowPanel;
+    public bool PanelOn = false;
+    public Text windowTitleText; // Window Title Text UI 요소
 
     private void Start()
     {
-        panels = new GameObject[]
-        {
-            GameObject.Find("PopUp"),
-            GameObject.Find("Gold_Window"),
-            GameObject.Find("Dia_Window")
-        };
+        popUpPanel = GameObject.Find("PopUp");
+        changeWindowPanel = GameObject.Find("Change_Window");
 
         // 초기에는 모든 패널을 비활성화
-        foreach (var panel in panels)
-        {
-            panel.SetActive(false);
-        }
+        popUpPanel.SetActive(false);
+        changeWindowPanel.SetActive(false);
     }
 
-    private void TogglePanel(GameObject panel)
-    {
-        if (panel.activeSelf)
-        {
-            panel.SetActive(false);
-            panelOn = false;
-        }
-        else
-        {
-            panel.SetActive(true);
-            panelOn = true;
-        }
-    }
-
+    //골드 버튼 클릭
     public void GoldButtonClick()
     {
-        TogglePanel(panels[1]); // Gold_Window 패널 토글
-        PopUpPanelFalse();
-        panelOn = true;
+        if (popUpPanel.activeSelf)
+        {
+            PopUpPanelFalse();
+        }
+        changeWindowPanel.SetActive(true);
+        PanelOn = true;
+
+        // Window Title Text 변경
+        if (windowTitleText != null)
+        {
+            windowTitleText.text = "골드량 선택";
+        }
     }
 
+    //다이아 버튼 클릭
     public void DiaButtonClick()
     {
-        TogglePanel(panels[2]); // Dia_Window 패널 토글
-        Debug.Log("Dias");
-        PopUpPanelFalse();
-        panelOn = true;
+        if (popUpPanel.activeSelf)
+        {
+            PopUpPanelFalse();
+            Debug.Log("Dias");
+        }
+        changeWindowPanel.SetActive(true);
+        PanelOn = true;
+
+        // Window Title Text 변경
+        if (windowTitleText != null)
+        {
+            windowTitleText.text = "다이아몬드량 선택";
+        }
     }
 
-    public void DiaWindowClose()
+    public void ChangeWindowClose()
     {
-        panels[2].SetActive(false); // Dia_Window 패널 닫기
-        panelOn = false;
-    }
-
-    public void GoldWindowClose()
-    {
-        panels[1].SetActive(false); // Gold_Window 패널 닫기
-        panelOn = false;
+        changeWindowPanel.SetActive(false);
+        PanelOn = false;
     }
 
     public void PopUpPanelFalse()
     {
-        if (panels[0].activeSelf)
+        if (popUpPanel.activeSelf)
         {
-            panels[0].SetActive(false); // PopUp 패널 닫기
-            panelOn = false;
-            Debug.Log("panelOn: " +panelOn);
+            popUpPanel.SetActive(false);
+            PanelOn = false;
+            Debug.Log(PanelOn);
         }
     }
 
     public void PopUpPanelTrue()
     {
-        panels[0].SetActive(true); // PopUp 패널 열기
-        panelOn = true;
+        popUpPanel.SetActive(true);
+        PanelOn = true;
     }
 }
