@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     //건물 선택 코드
     private void ObjectSelect()
     {
-        if (changePanelController.panelOn==false && Input.touchCount > 0)
+        if (changePanelController.PanelOn==false && Input.touchCount > 0)
         {
             //터치가 발생되면
             if (Input.touchCount > 0)
