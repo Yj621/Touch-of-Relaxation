@@ -12,10 +12,15 @@ public class PlayerData
     private double _gold;
     private double _goldIncrease;
 
+
+    private double _mainGage;
+    private double _cityGage;
+
     public PlayerData()
     {
         _workerCount = 1;
         _goldIncrease = 1f;
+        _mainGage = 0;
     }
 
     //전체 정보 최신화
@@ -61,7 +66,7 @@ public class DataManager : MonoBehaviour
         }
         else if(instance !=null)
         {
-            DestroyObject(instance.gameObject);
+            Destroy(instance.gameObject);
         }
         DontDestroyOnLoad(this.gameObject);
     }
@@ -69,7 +74,7 @@ public class DataManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(player.Gold());
+        //Debug.Log(player.Gold());
     }
 
 }

@@ -10,26 +10,20 @@ public class GameManager : MonoBehaviour
     private GameObject[] garbages;
 
     private float spawnRadius;
-    public GameObject popUpPanel; // PopUp 패널
-    private ChangePanelController changePanelController; // ChangePanelController 스크립트의 인스턴스
-
 
     // Start is called before the first frame update
     void Start()
     {
         Init();
         SpawnGarbage();
-        // ChangePanelController 스크립트의 인스턴스 가져오기
-        changePanelController = FindObjectOfType<ChangePanelController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!EventSystem.current.IsPointerOverGameObject())
-        {
-            ObjectSelect();
-        }
+        
+
+        
     }
 
     private void SpawnGarbage()
@@ -54,38 +48,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //건물 선택 코드
-    private void ObjectSelect()
-    {
-        if (changePanelController.PanelOn==false && Input.touchCount > 0)
-        {
-            //터치가 발생되면
-            if (Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0); //터치 상태 받아옴
-
-                //터치가 끝나는 순간
-                if (Input.GetTouch(0).phase == TouchPhase.Ended)
-                {
-                    Vector2 touchPos = new Vector2(touch.position.x, touch.position.y); //터치 위치 받아옴
-
-                    //레이캐스트를 이용해 터치 오브젝트 받아옴
-                    RaycastHit hit;
-                    Ray ray = Camera.main.ScreenPointToRay(touchPos);
-                    Physics.Raycast(ray, out hit);
-
-                    if (hit.collider != null && (hit.collider.tag == "TouchPossible" || hit.collider.tag == "ArriveTarget")) 
-                    {
-                        GameObject CurrentTouch = hit.transform.gameObject;
-                        Debug.Log(CurrentTouch.gameObject.name);
-                        // ChangePanelController의 PopUpPanelTrue 함수 호출
-                        changePanelController.PopUpPanelTrue();
-                    }
-                }
-            }
-        }
-    }
-
+   
     //초기화
     private void Init()
     {
