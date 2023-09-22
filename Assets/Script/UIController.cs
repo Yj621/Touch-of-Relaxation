@@ -10,15 +10,15 @@ public class UIController : MonoBehaviour
     public GameObject panelAbility;
     public GameObject panelTool;
     public GameObject panelStore;
-    
     private GameObject menu;
     private GameObject menuImg;
     private float moveDistance = -918f;
     private float animationSpeed = 2000f;
     private Vector3 targetPosition;
     private Quaternion startRotation;
-
     public bool isMenuDown = false;
+    public Text textEnergy;
+    private SliderValueController sliderValueController;
 
 
     //골드 다이어 패널
@@ -30,6 +30,7 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
+        sliderValueController = FindObjectOfType<SliderValueController>();
         menu = GameObject.Find("Menu");
         targetPosition = menu.transform.localPosition;
         menuImg = GameObject.Find("Img_Menu");
@@ -91,6 +92,10 @@ public class UIController : MonoBehaviour
     //골드 버튼 클릭
     public void GoldButtonClick()
     {
+        sliderValueController.currentEnergy = int.Parse(textEnergy.text); // energy UI Text 값 가져오기
+        sliderValueController.SetCurrentEnergy(int.Parse(textEnergy.text)); // SetCurrentEnergy 메서드를 호출할 때도 파라미터로 energy 값을 전달
+
+
         if (popUpPanel.activeSelf)
         {
             PopUpPanelFalse();
@@ -116,9 +121,11 @@ public class UIController : MonoBehaviour
         changeWindowPanel.SetActive(true);
         isPanelOn = true;
 
+        windowTitleText.text = "다이아몬드량 선택";
         // Window Title Text 변경
         if (windowTitleText != null)
         {
+            Debug.Log("Dia");
             windowTitleText.text = "다이아몬드량 선택";
         }
     }
@@ -135,6 +142,7 @@ public class UIController : MonoBehaviour
         {
             popUpPanel.SetActive(false);
             Invoke("ChagePanelStateFalse", 0.1f);
+            isPanelOn = false;
         }
     }
 
@@ -148,4 +156,9 @@ public class UIController : MonoBehaviour
     {
         isPanelOn = false;
     }
+    // public void UpdateCoinText(int amount)
+    // {
+    //     coin_text.text = (int.Parse(coin_text.text) + amount).ToString();
+    // }
+
 }

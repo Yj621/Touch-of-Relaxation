@@ -65,7 +65,7 @@ public class TouchController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(touchPos);
             Physics.Raycast(ray, out hit);
             Debug.Log(hit.collider.gameObject.name);
-            if (hit.collider != null && (hit.collider.tag == "TouchPossible" || hit.collider.tag == "ArriveTarget"))
+            if (hit.collider != null && (hit.collider.tag == "TouchPossible" || hit.collider.tag == "ArriveTarget") && uiController.isPanelOn==false)
             {
                 GameObject CurrentTouch = hit.transform.gameObject;
                 // ChangePanelController의 PopUpPanelTrue 함수 호출

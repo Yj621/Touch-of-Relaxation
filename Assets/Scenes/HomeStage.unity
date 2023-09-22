@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.183, g: 0.22868529, b: 0.30678868, a: 1}
+  m_IndirectSpecularColor: {r: 0.1829996, g: 0.22868465, b: 0.30678758, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2134,7 +2134,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uACE8\uB4DC\uB7C9 \uC120\uD0DD"
+  m_Text: 
 --- !u!222 &108226029
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3923,7 +3923,7 @@ GameObject:
   - component: {fileID: 172149603}
   - component: {fileID: 172149602}
   m_Layer: 5
-  m_Name: Fill
+  m_Name: garbage_Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5196,6 +5196,8 @@ MonoBehaviour:
   buttonDecrease: {fileID: 1514918276}
   buttonIncrease: {fileID: 760200733}
   textAmountOfGoods: {fileID: 1738261}
+  coinText: {fileID: 1908603250}
+  currentEnergy: 0
 --- !u!4 &226940648
 Transform:
   m_ObjectHideFlags: 0
@@ -6434,7 +6436,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2000
+  m_Text: 100
 --- !u!222 &281813380
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11568,7 +11570,7 @@ GameObject:
   - component: {fileID: 550464569}
   - component: {fileID: 550464568}
   m_Layer: 5
-  m_Name: Fill
+  m_Name: energy_Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11618,7 +11620,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.258
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -13934,7 +13936,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCDE8\uC18C"
+  m_Text: "\uCD08\uAE30\uD654"
 --- !u!222 &651542785
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19127,7 +19129,8 @@ MonoBehaviour:
   panelTool: {fileID: 1542244613}
   panelStore: {fileID: 108226023}
   isMenuDown: 0
-  windowTitleText: {fileID: 0}
+  textEnergy: {fileID: 281813379}
+  windowTitleText: {fileID: 108226028}
   isPanelOn: 0
 --- !u!1 &846669445 stripped
 GameObject:
@@ -27655,6 +27658,7 @@ GameObject:
   - component: {fileID: 1191585976}
   - component: {fileID: 1191585978}
   - component: {fileID: 1191585977}
+  - component: {fileID: 1191585979}
   m_Layer: 5
   m_Name: Button_Cancel
   m_TagString: Untagged
@@ -27720,6 +27724,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191585975}
   m_CullTransparentMesh: 0
+--- !u!114 &1191585979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191585975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1191585977}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1192654778 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1871174464052898, guid: ad9d3c1bf87264ed8a89c188f2c1018c, type: 3}
@@ -30581,7 +30629,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 844985916}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: PopUpPanelFalse
+        m_MethodName: ChangeWindowClose
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -38542,6 +38590,7 @@ GameObject:
   - component: {fileID: 1558357374}
   - component: {fileID: 1558357376}
   - component: {fileID: 1558357375}
+  - component: {fileID: 1558357377}
   m_Layer: 5
   m_Name: Button_Confirm
   m_TagString: Untagged
@@ -38607,6 +38656,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558357373}
   m_CullTransparentMesh: 0
+--- !u!114 &1558357377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558357373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1558357375}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 226940647}
+        m_TargetAssemblyTypeName: SliderValueController, Assembly-CSharp
+        m_MethodName: ConfirmButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1562185957 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1871174464052898, guid: ad9d3c1bf87264ed8a89c188f2c1018c, type: 3}
@@ -43425,7 +43530,7 @@ GameObject:
   - component: {fileID: 1754664063}
   - component: {fileID: 1754664062}
   m_Layer: 5
-  m_Name: Fill
+  m_Name: coin_Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43475,7 +43580,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -47624,7 +47729,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2000
+  m_Text: 0
 --- !u!222 &1908603251
 CanvasRenderer:
   m_ObjectHideFlags: 0
