@@ -10,14 +10,19 @@ public class SliderValueController : MonoBehaviour
     public Button buttonIncrease;
     public Text textAmountOfGoods;
     public Text coinText; // coin_text UI를 연결해줄 변수
+    public Text diaText; 
     private UIController uiController;
     public int currentEnergy = 0;
+    public GameObject warningWindow;
+    public GameObject windowTitle;
+
 
     private void Start()
     {
         Debug.Log("currentEnergy: " + currentEnergy);
         slider.value = 0;
         uiController = FindObjectOfType<UIController>();
+        warningWindow.SetActive(false);
     }
 
     private void DecreaseSliderValue()
@@ -29,7 +34,7 @@ public class SliderValueController : MonoBehaviour
     private void IncreaseSliderValue()
     {
         // Slider의 현재 값에서 10 증가
-        slider.value+=10;
+        slider.value += 10;
         UpdateTextAmountOfGoods();
     }
 
@@ -62,20 +67,54 @@ public class SliderValueController : MonoBehaviour
         }
         else
         {
-            // 현재 energy가 부족하면 경고 또는 처리할 내용 추가
+            warningWindow.SetActive(true);
             Debug.Log("Energy가 부족합니다.");
         }
     }
 
-    // 확인 버튼 클릭 시 호출되는 메서드
+    //dia_text UI 값을 업데이트
+    public void UpdateDiaText(int amount)
+    {
+        if (currentEnergy >= amount)
+        {
+            // 현재 energy가 충분하면 dia_text UI 값을 업데이트하고 energy 차감
+            diaText.text = (int.Parse(diaText.text) + amount).ToString();
+            currentEnergy -= amount;
+            // energy UI Text를 업데이트
+            uiController.textEnergy.text = currentEnergy.ToString();
+            Debug.Log("다이아로로 교환 완료");
+        }
+        else
+        {
+            warningWindow.SetActive(true);
+            Debug.Log("Energy가 부족합니다.");
+        }
+    }
+    // 확인 버튼 클릭
     public void ConfirmButtonClick()
     {
         int amount = (int)slider.value; // Slider의 값을 정수로 변환
-        UpdateCoinText(amount);
+        if(uiController.isGoldButtonClicked == true)
+        {
+            UpdateCoinText(amount);
+        }
+        else
+        {
+            UpdateDiaText(amount);
+        }
     }
-    // public void CancleButtonClick()
-    // {
-    //     slider.value = 0;
-    //     textAmountOfGoods.text = 0;
-    // }
+    //초기화 버튼 클릭
+    public void CancleButtonClick()
+    {
+        textAmountOfGoods.text = "0";
+        
+        // 'slider.value'를 0으로 초기화
+        slider.value = 0;
+    }
+
+    public void WarningWindowClose()
+    {
+        warningWindow.SetActive(false);
+    }
+
 }

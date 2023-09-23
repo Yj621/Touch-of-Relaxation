@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class UIController : MonoBehaviour
     public GameObject panelStore;
     private GameObject menu;
     private GameObject menuImg;
+    private GameObject btnMap;
     private float moveDistance = -918f;
     private float animationSpeed = 2000f;
     private Vector3 targetPosition;
@@ -19,13 +21,13 @@ public class UIController : MonoBehaviour
     public bool isMenuDown = false;
     public Text textEnergy;
     private SliderValueController sliderValueController;
-
+    public GameObject mapWindow;
 
     //골드 다이어 패널
     private GameObject popUpPanel; // PopUp 패널
     private GameObject changeWindowPanel;
     public Text windowTitleText; // Window Title Text UI 요소
-
+    public bool isGoldButtonClicked = false; //골드, 다이아버튼 어떤걸 클릭했는지 확인하는 변수
     public bool isPanelOn = false;
 
     private void Start()
@@ -38,8 +40,9 @@ public class UIController : MonoBehaviour
 
         popUpPanel = GameObject.Find("PopUp");
         changeWindowPanel = GameObject.Find("Change_Window");
+        btnMap = GameObject.Find("Button_Map");
 
-        // 초기에는 모든 패널을 비활성화
+        mapWindow.SetActive(false);
         popUpPanel.SetActive(false);
         changeWindowPanel.SetActive(false);
     }
@@ -88,10 +91,25 @@ public class UIController : MonoBehaviour
         menuImg.transform.rotation = isMenuDown ? Quaternion.Euler(0, 0, 90) : startRotation;
     }
 
+    public void OnBtnMap()
+    {
+        mapWindow.SetActive(true);
+    }
+
+    public void OnBtnMapClose()
+    {
+        mapWindow.SetActive(false);
+    }
+
+    public void MapChange()
+    {
+        SceneManager.LoadScene("StageScene");
+    }
 
     //골드 버튼 클릭
     public void GoldButtonClick()
     {
+        isGoldButtonClicked = true;
         sliderValueController.currentEnergy = int.Parse(textEnergy.text); // energy UI Text 값 가져오기
         sliderValueController.SetCurrentEnergy(int.Parse(textEnergy.text)); // SetCurrentEnergy 메서드를 호출할 때도 파라미터로 energy 값을 전달
 
@@ -113,6 +131,10 @@ public class UIController : MonoBehaviour
     //다이아 버튼 클릭
     public void DiaButtonClick()
     {
+        isGoldButtonClicked = false;
+        sliderValueController.currentEnergy = int.Parse(textEnergy.text); // energy UI Text 값 가져오기
+        sliderValueController.SetCurrentEnergy(int.Parse(textEnergy.text)); // SetCurrentEnergy 메서드를 호출할 때도 파라미터로 energy 값을 전달
+
         if (popUpPanel.activeSelf)
         {
             PopUpPanelFalse();
@@ -156,9 +178,5 @@ public class UIController : MonoBehaviour
     {
         isPanelOn = false;
     }
-    // public void UpdateCoinText(int amount)
-    // {
-    //     coin_text.text = (int.Parse(coin_text.text) + amount).ToString();
-    // }
 
 }
