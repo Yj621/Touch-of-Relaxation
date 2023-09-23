@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1829996, g: 0.22868465, b: 0.30678758, a: 1}
+  m_IndirectSpecularColor: {r: 0.183, g: 0.22868529, b: 0.30678868, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5294,59 +5294,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 83217483}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &226940646
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 226940648}
-  - component: {fileID: 226940647}
-  m_Layer: 0
-  m_Name: SliderValueController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &226940647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226940646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbc0b2e71c0c549938aef4979d6b0980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slider: {fileID: 932184204}
-  buttonDecrease: {fileID: 1514918276}
-  buttonIncrease: {fileID: 760200733}
-  textAmountOfGoods: {fileID: 1738261}
-  coinText: {fileID: 1908603250}
-  diaText: {fileID: 1526329285}
-  currentEnergy: 0
-  warningWindow: {fileID: 661343690}
-  windowTitle: {fileID: 108226023}
---- !u!4 &226940648
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226940646}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 650.7318, y: 1336.544, z: -12.546785}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &231749870
 PrefabInstance:
@@ -17867,8 +17814,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 226940647}
-        m_TargetAssemblyTypeName: SliderValueController, Assembly-CSharp
+      - m_Target: {fileID: 844985916}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: IncreaseSliderValue
         m_Mode: 1
         m_Arguments:
@@ -19874,6 +19821,15 @@ MonoBehaviour:
   windowTitleText: {fileID: 108226028}
   isGoldButtonClicked: 0
   isPanelOn: 0
+  slider: {fileID: 932184204}
+  buttonDecrease: {fileID: 1514918276}
+  buttonIncrease: {fileID: 760200733}
+  textAmountOfGoods: {fileID: 1738261}
+  coinText: {fileID: 1908603250}
+  diaText: {fileID: 1526329285}
+  currentEnergy: 0
+  warningWindow: {fileID: 661343690}
+  windowTitle: {fileID: 108226023}
 --- !u!1 &846669445 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1871174464052898, guid: ad9d3c1bf87264ed8a89c188f2c1018c, type: 3}
@@ -21009,8 +20965,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 226940647}
-        m_TargetAssemblyTypeName: SliderValueController, Assembly-CSharp
+      - m_Target: {fileID: 844985916}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: WarningWindowClose
         m_Mode: 1
         m_Arguments:
@@ -28719,8 +28675,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 226940647}
-        m_TargetAssemblyTypeName: SliderValueController, Assembly-CSharp
+      - m_Target: {fileID: 844985916}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: CancleButtonClick
         m_Mode: 1
         m_Arguments:
@@ -38437,8 +38393,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 226940647}
-        m_TargetAssemblyTypeName: SliderValueController, Assembly-CSharp
+      - m_Target: {fileID: 844985916}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: DecreaseSliderValue
         m_Mode: 1
         m_Arguments:
@@ -39740,8 +39696,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 226940647}
-        m_TargetAssemblyTypeName: SliderValueController, Assembly-CSharp
+      - m_Target: {fileID: 844985916}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: ConfirmButtonClick
         m_Mode: 1
         m_Arguments:
@@ -54447,4 +54403,3 @@ SceneRoots:
   - {fileID: 1853841597}
   - {fileID: 844985915}
   - {fileID: 705119162}
-  - {fileID: 226940648}

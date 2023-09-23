@@ -22,7 +22,7 @@ public class TouchController : MonoBehaviour
 
     void Update()
     {
-        if (!uiController.isPanelOn && uiController.isMenuDown)
+        if (!uiController.isPanelOn && uiController.isMenuDown && !uiController.slider.IsActive())
         {
             //손가락 하나가 눌렸을 때 -> 화면 이동
             if (Input.touchCount == 1)
