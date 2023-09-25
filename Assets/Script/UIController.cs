@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
-    //메뉴 패널
+    PlayerData playerData;
+
+    [Header ("메뉴 패널")]
     public GameObject panelConstruction;
     public GameObject panelAbility;
     public GameObject panelTool;
@@ -19,31 +21,34 @@ public class UIController : MonoBehaviour
     private Vector3 targetPosition;
     private Quaternion startRotation;
     public bool isMenuDown = false;
-    public Text textEnergy;
+    public Text energyText;
     public GameObject mapWindow;
-
-    //골드 다이어 패널
+    
+    [Header("골드, 다이어 변환 패널")]
     private GameObject popUpPanel; // PopUp 패널
     private GameObject changeWindowPanel;
     public Text windowTitleText; // Window Title Text UI 요소
     public bool isGoldButtonClicked = false; //골드, 다이아버튼 어떤걸 클릭했는지 확인하는 변수
     public bool isPanelOn = false;
 
-
-    //slider 패널
+    [Header("slider 패널")]
     public Slider slider;
     public Button buttonDecrease;
     public Button buttonIncrease;
     public Text textAmountOfGoods;
-    public Text coinText; // coin_text UI를 연결해줄 변수
+    public Text goldText; // coin_text UI를 연결해줄 변수
     public Text diaText;
-    private UIController uiController;
-    public int currentEnergy = 0;
+    public Text garbage;
     public GameObject warningWindow;
     public GameObject windowTitle;
 
+    [Header("진척도 패널")]
+    public Image progressGage;
+
     private void Start()
     {
+        playerData = DataManager.instance.player;
+
         menu = GameObject.Find("Menu");
         targetPosition = menu.transform.localPosition;
         menuImg = GameObject.Find("Img_Menu");
@@ -54,21 +59,23 @@ public class UIController : MonoBehaviour
         btnMap = GameObject.Find("Button_Map");
 
         slider.value = 0;
-        uiController = FindObjectOfType<UIController>();
 
         mapWindow.SetActive(false);
         popUpPanel.SetActive(false);
         changeWindowPanel.SetActive(false);
         warningWindow.SetActive(false);
-
-        Debug.Log("currentEnergy: " + currentEnergy);
-        
     }
 
     private void Update()
     {
         // Menu 오브젝트를 목표 위치로 천천히 내리기
         menu.transform.localPosition = Vector3.MoveTowards(menu.transform.localPosition, targetPosition, animationSpeed * Time.deltaTime);
+        progressGage.fillAmount = (float)DataManager.instance.player.MainGage() / 100.0f;
+
+        garbage.text = playerData.Garbage().ToString();
+        energyText.text = playerData.Energy().ToString();
+        goldText.text = playerData.Gold().ToString();
+        diaText.text = playerData.Dia().ToString();
     }
 
     private void SetPanelActive(GameObject panel)
@@ -128,8 +135,7 @@ public class UIController : MonoBehaviour
     public void GoldButtonClick()
     {
         isGoldButtonClicked = true;
-        currentEnergy = int.Parse(textEnergy.text); // energy UI Text 값 가져오기
-        SetCurrentEnergy(int.Parse(textEnergy.text)); // SetCurrentEnergy 메서드를 호출할 때도 파라미터로 energy 값을 전달
+        SetCurrentEnergy(int.Parse(energyText.text)); // SetCurrentEnergy 메서드를 호출할 때도 파라미터로 energy 값을 전달
 
 
         if (popUpPanel.activeSelf)
@@ -151,8 +157,7 @@ public class UIController : MonoBehaviour
     public void DiaButtonClick()
     {
         isGoldButtonClicked = false;
-        currentEnergy = int.Parse(textEnergy.text); // energy UI Text 값 가져오기
-        SetCurrentEnergy(int.Parse(textEnergy.text)); // SetCurrentEnergy 메서드를 호출할 때도 파라미터로 energy 값을 전달
+        SetCurrentEnergy(int.Parse(energyText.text)); // SetCurrentEnergy 메서드를 호출할 때도 파라미터로 energy 값을 전달
 
         if (popUpPanel.activeSelf)
         {
@@ -206,14 +211,14 @@ public class UIController : MonoBehaviour
 
     public void DecreaseSliderValue()
     {
-        slider.value -= 10;
+        slider.value -= 1;
         UpdateTextAmountOfGoods();
     }
 
     public void IncreaseSliderValue()
     {
         // Slider의 현재 값에서 10 증가
-        slider.value += 10;
+        slider.value += 1;
         UpdateTextAmountOfGoods();
     }
 
@@ -226,60 +231,29 @@ public class UIController : MonoBehaviour
     // 현재 energy 값을 설정하는 메서드
     public void SetCurrentEnergy(int energyValue)
     {
-        currentEnergy = energyValue;
-        slider.maxValue = currentEnergy; // Slider의 maxValue를 현재 energy 값으로 설정
+        slider.maxValue = playerData.Energy(); // Slider의 maxValue를 현재 energy 값으로 설정
         slider.value = 0; // Slider의 값을 초기화
         UpdateTextAmountOfGoods();
     }
 
-    //coin_text UI 값을 업데이트
-    public void UpdateCoinText(int amount)
-    {
-        if (currentEnergy >= amount)
-        {
-            // 현재 energy가 충분하면 coin_text UI 값을 업데이트하고 energy 차감
-            coinText.text = (int.Parse(coinText.text) + amount).ToString();
-            currentEnergy -= amount;
-            // energy UI Text를 업데이트
-            uiController.textEnergy.text = currentEnergy.ToString();
-            Debug.Log("골드로 교환 완료");
-        }
-        else
-        {
-            warningWindow.SetActive(true);
-        }
-    }
-
-    //dia_text UI 값을 업데이트
-    public void UpdateDiaText(int amount)
-    {
-        if (currentEnergy >= amount)
-        {
-            // 현재 energy가 충분하면 dia_text UI 값을 업데이트하고 energy 차감
-            diaText.text = (int.Parse(diaText.text) + amount).ToString();
-            currentEnergy -= amount;
-            // energy UI Text를 업데이트
-            uiController.textEnergy.text = currentEnergy.ToString();
-            Debug.Log("다이아로로 교환 완료");
-        }
-        else
-        {
-            warningWindow.SetActive(true);
-            Debug.Log("Energy가 부족합니다.");
-        }
-    }
+    
+    
     // 확인 버튼 클릭
     public void ConfirmButtonClick()
     {
         int amount = (int)slider.value; // Slider의 값을 정수로 변환
-        if (uiController.isGoldButtonClicked == true)
+        if (isGoldButtonClicked)
         {
-            UpdateCoinText(amount);
+            playerData.Energy(playerData.Energy() - amount);
+            playerData.Gold(playerData.Gold() + amount);
         }
         else
         {
-            UpdateDiaText(amount);
+            playerData.Energy(playerData.Energy() - amount);
+            playerData.Dia(playerData.Dia() + amount);
         }
+        slider.value = 0;
+        UpdateTextAmountOfGoods();
     }
     //초기화 버튼 클릭
     public void CancleButtonClick()

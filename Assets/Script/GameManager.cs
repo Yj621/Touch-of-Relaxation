@@ -10,11 +10,16 @@ public class GameManager : MonoBehaviour
     private GameObject[] garbages;
 
     private float spawnRadius;
-    private UIController UIController; 
+    private UIController UIController;
+    private PlayerData playerData;
+
+    private bool isChanging;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerData = DataManager.instance.player;
+        isChanging = false;
         Init();
         SpawnGarbage();
     }
@@ -22,9 +27,19 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerData.Garbage() > 0 && !isChanging) 
+        {
+            isChanging = true;
+            Invoke("ChangeGarbageToEnergy", 1f);
+        }
         
+    }
 
-        
+    private void ChangeGarbageToEnergy()
+    {
+        playerData.Garbage(playerData.Garbage() - 1);
+        playerData.Energy(playerData.Energy() + 1);
+        isChanging = false;
     }
 
     private void SpawnGarbage()

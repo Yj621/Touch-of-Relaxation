@@ -19816,7 +19816,7 @@ MonoBehaviour:
   panelTool: {fileID: 1542244613}
   panelStore: {fileID: 108226023}
   isMenuDown: 0
-  textEnergy: {fileID: 281813379}
+  energyText: {fileID: 281813379}
   mapWindow: {fileID: 1858113788}
   windowTitleText: {fileID: 108226028}
   isGoldButtonClicked: 0
@@ -19825,11 +19825,12 @@ MonoBehaviour:
   buttonDecrease: {fileID: 1514918276}
   buttonIncrease: {fileID: 760200733}
   textAmountOfGoods: {fileID: 1738261}
-  coinText: {fileID: 1908603250}
+  goldText: {fileID: 1908603250}
   diaText: {fileID: 1526329285}
-  currentEnergy: 0
+  garbage: {fileID: 236795736}
   warningWindow: {fileID: 661343690}
   windowTitle: {fileID: 108226023}
+  progressGage: {fileID: 1988156275}
 --- !u!1 &846669445 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1871174464052898, guid: ad9d3c1bf87264ed8a89c188f2c1018c, type: 3}

@@ -80,7 +80,7 @@ public class WorkerScript : MonoBehaviour
         //쓰레기를 주운 후 건물에 도착함
         if (collision.gameObject.tag == "ArriveTarget" && isHaveGarbage)
         {
-            DataManager.instance.player.GoldIncrease();
+            DataManager.instance.player.Garbage(DataManager.instance.player.Garbage()+1);
             isHaveGarbage = false;
             GoOut();
         }
