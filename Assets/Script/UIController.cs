@@ -16,6 +16,7 @@ public class UIController : MonoBehaviour
     private GameObject menu;
     private GameObject menuImg;
     private GameObject btnMap;
+    private GameObject btnBook;
     private float moveDistance = -918f;
     private float animationSpeed = 2000f;
     private Vector3 targetPosition;
@@ -23,6 +24,10 @@ public class UIController : MonoBehaviour
     public bool isMenuDown = false;
     public Text energyText;
     public GameObject mapWindow;
+    public GameObject bookWindow;
+
+
+
     
     [Header("골드, 다이어 변환 패널")]
     private GameObject popUpPanel; // PopUp 패널
@@ -57,10 +62,12 @@ public class UIController : MonoBehaviour
         popUpPanel = GameObject.Find("PopUp");
         changeWindowPanel = GameObject.Find("Change_Window");
         btnMap = GameObject.Find("Button_Map");
+        btnBook = GameObject.Find("Button_Book");
 
         slider.value = 0;
 
         mapWindow.SetActive(false);
+        bookWindow.SetActive(false);
         popUpPanel.SetActive(false);
         changeWindowPanel.SetActive(false);
         warningWindow.SetActive(false);
@@ -120,11 +127,22 @@ public class UIController : MonoBehaviour
     {
         mapWindow.SetActive(true);
     }
-
     public void OnBtnMapClose()
     {
         mapWindow.SetActive(false);
+    }    
+    
+    public void OnBtnBook()
+    {
+        bookWindow.SetActive(true);
     }
+    
+    public void OnBtnBookClose()
+    {
+        bookWindow.SetActive(false);
+    }
+
+
 
     public void MapChange()
     {
