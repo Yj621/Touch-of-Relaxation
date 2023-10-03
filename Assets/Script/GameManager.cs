@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     private GameObject[] garbages;
 
     private float spawnRadius;
-    private UIController UIController;
     private PlayerData playerData;
 
     private bool isChanging;

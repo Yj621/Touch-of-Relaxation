@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class UIController : MonoBehaviour
 {
     PlayerData playerData;
+    WorkerScript workerScript;
 
     [Header ("메뉴 패널")]
     public GameObject panelConstruction;
@@ -25,11 +27,8 @@ public class UIController : MonoBehaviour
     public Text energyText;
     public GameObject mapWindow;
     public GameObject bookWindow;
-
-
-
     
-    [Header("골드, 다이어 변환 패널")]
+    [Header("골드, 다이아 변환 패널")]
     private GameObject popUpPanel; // PopUp 패널
     private GameObject changeWindowPanel;
     public Text windowTitleText; // Window Title Text UI 요소
@@ -46,9 +45,34 @@ public class UIController : MonoBehaviour
     public Text garbage;
     public GameObject warningWindow;
     public GameObject windowTitle;
+    
+    [Header("도감 패널")]
+    public Button[] buttons; // 버튼 배열
+    private List<SetItem> sets = new List<SetItem>(); // 세트 리스트
+    private bool isZero = false;
+    private bool isFirst = false;
 
     [Header("진척도 패널")]
     public Image progressGage;
+
+    private void Awake()
+    {
+    // 모든 버튼을 비활성화합니다.
+        foreach (Button button in buttons)
+        {
+            button.interactable = false;
+        }
+
+        // 세트 초기화
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            SetItem set = new SetItem();
+            set.button = buttons[i];
+            set.buttonClicked = false;
+            set.index = i;
+            sets.Add(set);
+        }
+    }
 
     private void Start()
     {
@@ -63,6 +87,7 @@ public class UIController : MonoBehaviour
         changeWindowPanel = GameObject.Find("Change_Window");
         btnMap = GameObject.Find("Button_Map");
         btnBook = GameObject.Find("Button_Book");
+        workerScript = FindAnyObjectByType<WorkerScript>();
 
         slider.value = 0;
 
@@ -71,6 +96,7 @@ public class UIController : MonoBehaviour
         popUpPanel.SetActive(false);
         changeWindowPanel.SetActive(false);
         warningWindow.SetActive(false);
+        
     }
 
     private void Update()
@@ -83,6 +109,23 @@ public class UIController : MonoBehaviour
         energyText.text = playerData.Energy().ToString();
         goldText.text = playerData.Gold().ToString();
         diaText.text = playerData.Dia().ToString();
+
+
+        // workerScript.special이 true이고 IndexZero 함수가 아직 실행되지 않았다면 실행합니다.
+        if (workerScript.special1 == true && !isZero)
+        {
+            Debug.Log("0");
+            IndexZero();
+            isZero = true; // IndexZero 함수를 실행했으므로 플래그를 true로 설정합니다.
+        }
+        // workerScript.special이 true이고 IndexZero 함수가 아직 실행되지 않았다면 실행합니다.
+        if (workerScript.special2 == true && !isFirst)
+        {
+            Debug.Log("0");
+            IndexFirst();
+            isFirst = true; // IndexZero 함수를 실행했으므로 플래그를 true로 설정합니다.
+        }
+
     }
 
     private void SetPanelActive(GameObject panel)
@@ -141,7 +184,6 @@ public class UIController : MonoBehaviour
     {
         bookWindow.SetActive(false);
     }
-
 
 
     public void MapChange()
@@ -226,7 +268,6 @@ public class UIController : MonoBehaviour
     }
 
 
-
     public void DecreaseSliderValue()
     {
         slider.value -= 1;
@@ -254,7 +295,6 @@ public class UIController : MonoBehaviour
         UpdateTextAmountOfGoods();
     }
 
-    
     
     // 확인 버튼 클릭
     public void ConfirmButtonClick()
@@ -286,4 +326,57 @@ public class UIController : MonoBehaviour
     {
         warningWindow.SetActive(false);
     }
+
+    // 도감 다이아 얻는 버튼 (버튼 인덱스를 받아 처리)
+    public void OnBtnGetDia(int index)
+    {
+        if (!sets[index].buttonClicked)
+        {
+            playerData.Dia(playerData.Dia() + 1000);
+            sets[index].buttonClicked = true;
+            sets[index].button.interactable = false;
+        }
+    }
+
+    // 다른 버튼 동작 메서드들 (각 버튼을 별도의 메서드로 처리)
+    public void OnBtnGetDia0()
+    {
+        OnBtnGetDia(0);
+    }
+
+    public void OnBtnGetDia1()
+    {
+        OnBtnGetDia(1);
+    }
+
+    public void OnBtnGetDia2()
+    {
+        OnBtnGetDia(2);
+    }
+
+    public void OnBtnGetDia3()
+    {
+        OnBtnGetDia(3);
+    }
+    public void OnBtnGetDia4()
+    {
+        OnBtnGetDia(4);
+    }
+    public void IndexZero()
+    {
+        sets[0].button.interactable = true;
+    }
+    public void IndexFirst()
+    {
+        sets[1].button.interactable = true;
+    }
+    // SetItem 클래스 정의
+    private class SetItem
+    {
+        public Button button;
+        public bool buttonClicked=false;
+        public int index;
+    }
 }
+
+

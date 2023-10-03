@@ -10,6 +10,8 @@ public class WorkerScript : MonoBehaviour
     public bool isHaveGarbage;
     public bool isGoFactory;
     public bool isGoOut;
+    public bool special1 = false;
+    public bool special2 = false;
 
     private Transform outTarget;
     private Transform arriveTarget;
@@ -46,6 +48,18 @@ public class WorkerScript : MonoBehaviour
     public void GoOut()
     {
         workerNav.SetDestination(outTarget.position);
+        // 0부터 1 사이의 무작위 숫자를 생성합니다.
+        float randomValue = Random.Range(0f, 1f);
+
+        // 50% 확률
+        if (randomValue < 0.5f)
+        {
+            special1 = true;
+        }
+        else if(randomValue < 0.8f)
+        {
+            special2 = true;
+        }
     }
 
     //get set 함수
