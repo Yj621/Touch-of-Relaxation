@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class UIController : MonoBehaviour
 {
+    CameraSwitcher cameraSwitcher;
     PlayerData playerData;
     WorkerScript workerScript;
 
@@ -55,6 +56,7 @@ public class UIController : MonoBehaviour
     [Header("진척도 패널")]
     public Image progressGage;
 
+
     private void Awake()
     {
     // 모든 버튼을 비활성화합니다.
@@ -88,6 +90,7 @@ public class UIController : MonoBehaviour
         btnMap = GameObject.Find("Button_Map");
         btnBook = GameObject.Find("Button_Book");
         workerScript = FindAnyObjectByType<WorkerScript>();
+        cameraSwitcher = FindAnyObjectByType<CameraSwitcher>();
 
         slider.value = 0;
 
@@ -137,6 +140,11 @@ public class UIController : MonoBehaviour
             panelTool.SetActive(panel == panelTool);
             panelStore.SetActive(panel == panelStore);
         }
+    }
+    public void OnBtnForest()
+    {
+        SceneManager.LoadScene("StageScene"); 
+        cameraSwitcher.ForestCam();
     }
 
     public void OnBtnConstruction()
