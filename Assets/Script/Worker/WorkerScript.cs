@@ -12,6 +12,8 @@ public class WorkerScript : MonoBehaviour
     public bool isGoOut;
     public bool special1 = false;
     public bool special2 = false;
+    public int increaseAmount;
+    public int finalIncreaseAmount;
 
     private Transform outTarget;
     private Transform arriveTarget;
@@ -95,6 +97,7 @@ public class WorkerScript : MonoBehaviour
         if (collision.gameObject.tag == "ArriveTarget" && isHaveGarbage)
         {
             DataManager.instance.player.SetUnitValue("Garbage", 5);
+            DataManager.instance.player.IncreaseGage("Main", 5);
             isHaveGarbage = false;
             GoOut();
         }

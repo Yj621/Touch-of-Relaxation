@@ -106,7 +106,7 @@ public class UIController : MonoBehaviour
     {
         // Menu 오브젝트를 목표 위치로 천천히 내리기
         menu.transform.localPosition = Vector3.MoveTowards(menu.transform.localPosition, targetPosition, animationSpeed * Time.deltaTime);
-        progressGage.fillAmount = (float)DataManager.instance.player.MainGage() / 100.0f;
+        progressGage.fillAmount = (float)DataManager.instance.player.ConfirmGage("Main");
 
         garbage.text = playerData.MyUnitToString("Garbage").ToString();
         energyText.text = playerData.MyUnitToString("Energy").ToString();
@@ -117,14 +117,12 @@ public class UIController : MonoBehaviour
         // workerScript.special이 true이고 IndexZero 함수가 아직 실행되지 않았다면 실행합니다.
         if (workerScript.special1 == true && !isZero)
         {
-            Debug.Log("0");
             IndexZero();
             isZero = true; // IndexZero 함수를 실행했으므로 플래그를 true로 설정합니다.
         }
         // workerScript.special이 true이고 IndexZero 함수가 아직 실행되지 않았다면 실행합니다.
         if (workerScript.special2 == true && !isFirst)
         {
-            Debug.Log("0");
             IndexFirst();
             isFirst = true; // IndexZero 함수를 실행했으므로 플래그를 true로 설정합니다.
         }

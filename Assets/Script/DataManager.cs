@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+enum StageNum { main = 0, city}
+
 public class PlayerData
 {
+    StageNum stageNum;
     private string _name;   //플레이어 닉네임
 
     //worker 관련 
@@ -21,18 +24,18 @@ public class PlayerData
     private int[] _diamond;
 
     //스테이지 진행도 관련
-    private double _mainGage;
-    private double _cityGage;
+    private float[] _stageGage;
 
     public PlayerData()
     {
         _workerCount = 1;
-        _mainGage = 0;
 
         _garbage = new int[26];
         _energy = new int[26];
         _gold = new int[26];
         _diamond = new int[26];
+
+        _stageGage = new float[6];
 
         for(int i=0; i<26; i++)
         {
@@ -209,6 +212,27 @@ public class PlayerData
         return false;
 
     }
+
+    public double ConfirmGage(string s)
+    {
+        int index = 0;
+        if (s == "Main")
+        {
+            index = (int)StageNum.main;
+        }
+        return _stageGage[index];
+    }
+    public void IncreaseGage(string s , int val)
+    {
+        int index = 0;
+        if(s== "Main")
+        {
+            index = (int)StageNum.main;
+        }
+        _stageGage[index] += (float)(val / 1000000.0f);
+        Debug.Log((float)_stageGage[index]);
+    }
+
     //전체 정보 최신화
     public void UpdatePlayerInfo(int w=1, int e=0, int g=0, int d=0)
     {
@@ -222,15 +246,6 @@ public class PlayerData
     public int WorkerCount()
     {
         return _workerCount;
-    }
-
-    public void MainGage(double m)
-    {
-        _mainGage = m;
-    }
-    public double MainGage()
-    {
-        return _mainGage;
     }
 
 }
