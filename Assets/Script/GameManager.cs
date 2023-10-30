@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class GameManager : MonoBehaviour
     private PlayerData playerData;
 
     private bool isChanging;
+    public UnityEngine.UI.Slider slider;
+    public Text textAmountOfGoods;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -72,4 +76,11 @@ public class GameManager : MonoBehaviour
         garbages = Resources.LoadAll<GameObject>("GarbagePrefabs"); //사용할 쓰레기 프리팹들을 전부 불러옴
         spawnRadius = 10f;
     }
+
+    public void UpdateTextAmountOfGoods()
+    {
+        // Slider의 값을 Text UI에 표시
+        textAmountOfGoods.text = slider.value.ToString();
+    }
+
 }

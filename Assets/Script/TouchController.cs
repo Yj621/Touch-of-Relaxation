@@ -69,7 +69,7 @@ public class TouchController : MonoBehaviour
             {
                 GameObject CurrentTouch = hit.transform.gameObject;
                 // ChangePanelController의 PopUpPanelTrue 함수 호출
-                uiController.PopUpPanelTrue();
+                uiController.ChangeWindowTrue();
             }
 
         }

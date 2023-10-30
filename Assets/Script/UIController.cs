@@ -30,7 +30,7 @@ public class UIController : MonoBehaviour
     public GameObject bookWindow;
     
     [Header("골드, 다이아 변환 패널")]
-    private GameObject popUpPanel; // PopUp 패널
+
     private GameObject changeWindowPanel;
     public Text windowTitleText; // Window Title Text UI 요소
     public bool isGoldButtonClicked = false; //골드, 다이아버튼 어떤걸 클릭했는지 확인하는 변수
@@ -85,18 +85,17 @@ public class UIController : MonoBehaviour
         menuImg = GameObject.Find("Img_Menu");
         startRotation = menuImg.transform.rotation;
 
-        popUpPanel = GameObject.Find("PopUp");
         changeWindowPanel = GameObject.Find("Change_Window");
         btnMap = GameObject.Find("Button_Map");
         btnBook = GameObject.Find("Button_Book");
         workerScript = FindAnyObjectByType<WorkerScript>();
         cameraSwitcher = FindAnyObjectByType<CameraSwitcher>();
 
+
+
         slider.value = 0;
 
         mapWindow.SetActive(false);
-        bookWindow.SetActive(false);
-        popUpPanel.SetActive(false);
         changeWindowPanel.SetActive(false);
         warningWindow.SetActive(false);
         
@@ -204,66 +203,39 @@ public class UIController : MonoBehaviour
         SetCurrentEnergy(int.Parse(energyText.text)); // SetCurrentEnergy 메서드를 호출할 때도 파라미터로 energy 값을 전달
 
 
-        if (popUpPanel.activeSelf)
+        if (changeWindowPanel.activeSelf)
         {
-            popUpPanel.SetActive(false);
-            PopUpPanelFalse();
-        }
-        changeWindowPanel.SetActive(true);
-        isPanelOn = true;
-
-        // Window Title Text 변경
-        if (windowTitleText != null)
-        {
+            changeWindowPanel.SetActive(false);
+            ChangeWindowFalse();
             windowTitleText.text = "골드량 선택";
         }
-    }
 
-    //다이아 버튼 클릭
-    public void DiaButtonClick()
-    {
-        isGoldButtonClicked = false;
-        SetCurrentEnergy(int.Parse(energyText.text)); // SetCurrentEnergy 메서드를 호출할 때도 파라미터로 energy 값을 전달
-
-        if (popUpPanel.activeSelf)
-        {
-            popUpPanel.SetActive(false);
-            PopUpPanelFalse();
-            Debug.Log("Dias");
-        }
-        changeWindowPanel.SetActive(true);
         isPanelOn = true;
 
-        windowTitleText.text = "다이아몬드량 선택";
-        // Window Title Text 변경
-        if (windowTitleText != null)
-        {
-            Debug.Log("Dia");
-            windowTitleText.text = "다이아몬드량 선택";
-        }
     }
+
+    
 
     public void ChangeWindowClose()
     {
         changeWindowPanel.SetActive(false);
-        popUpPanel.SetActive(false);
         Invoke("ChagePanelStateFalse", 0.1f);
     }
 
-    public void PopUpPanelFalse()
+    public void ChangeWindowFalse()
     {
-        if (popUpPanel.activeSelf)
+        if (changeWindowPanel.activeSelf)
         {
-            popUpPanel.SetActive(false);
+            changeWindowPanel.SetActive(false);
             Invoke("ChagePanelStateFalse", 0.1f);
         }
     }
 
-    public void PopUpPanelTrue()
+    public void ChangeWindowTrue()
     {
         if (!changeWindowPanel.activeSelf && !isPanelOn)
         {
-            popUpPanel.SetActive(true);
+            changeWindowPanel.SetActive(true);
             isPanelOn = true;
         }
     }
@@ -310,11 +282,6 @@ public class UIController : MonoBehaviour
         {
             playerData.SetUnitValue("Energy", -amount);
             playerData.SetUnitValue("Gold", amount);
-        }
-        else
-        {
-            playerData.SetUnitValue("Energy", -amount);
-            playerData.SetUnitValue("Diamond", amount);
         }
         slider.value = 0;
         UpdateTextAmountOfGoods();
