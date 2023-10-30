@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerData.Garbage() > 0 && !isChanging) 
+        if (playerData.IsHaveUnit("Garbage") && !isChanging) 
         {
             isChanging = true;
             Invoke("ChangeGarbageToEnergy", 1f);
@@ -36,8 +36,8 @@ public class GameManager : MonoBehaviour
 
     private void ChangeGarbageToEnergy()
     {
-        playerData.Garbage(playerData.Garbage() - 1);
-        playerData.Energy(playerData.Energy() + 1);
+        playerData.SetUnitValue("Garbage", -1);
+        playerData.SetUnitValue("Energy", 1);
         isChanging = false;
     }
 

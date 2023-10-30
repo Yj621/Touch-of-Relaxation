@@ -108,10 +108,10 @@ public class UIController : MonoBehaviour
         menu.transform.localPosition = Vector3.MoveTowards(menu.transform.localPosition, targetPosition, animationSpeed * Time.deltaTime);
         progressGage.fillAmount = (float)DataManager.instance.player.MainGage() / 100.0f;
 
-        garbage.text = playerData.Garbage().ToString();
-        energyText.text = playerData.Energy().ToString();
-        goldText.text = playerData.Gold().ToString();
-        diaText.text = playerData.Dia().ToString();
+        garbage.text = playerData.MyUnitToString("Garbage").ToString();
+        energyText.text = playerData.MyUnitToString("Energy").ToString();
+        goldText.text = playerData.MyUnitToString("Gold").ToString();
+        diaText.text = playerData.MyUnitToString("Diamond").ToString();
 
 
         // workerScript.special이 true이고 IndexZero 함수가 아직 실행되지 않았다면 실행합니다.
@@ -298,7 +298,7 @@ public class UIController : MonoBehaviour
     // 현재 energy 값을 설정하는 메서드
     public void SetCurrentEnergy(int energyValue)
     {
-        slider.maxValue = playerData.Energy(); // Slider의 maxValue를 현재 energy 값으로 설정
+        //slider.maxValue = playerData.Energy(); // Slider의 maxValue를 현재 energy 값으로 설정
         slider.value = 0; // Slider의 값을 초기화
         UpdateTextAmountOfGoods();
     }
@@ -310,13 +310,13 @@ public class UIController : MonoBehaviour
         int amount = (int)slider.value; // Slider의 값을 정수로 변환
         if (isGoldButtonClicked)
         {
-            playerData.Energy(playerData.Energy() - amount);
-            playerData.Gold(playerData.Gold() + amount);
+            playerData.SetUnitValue("Energy", -amount);
+            playerData.SetUnitValue("Gold", amount);
         }
         else
         {
-            playerData.Energy(playerData.Energy() - amount);
-            playerData.Dia(playerData.Dia() + amount);
+            playerData.SetUnitValue("Energy", -amount);
+            playerData.SetUnitValue("Diamond", amount);
         }
         slider.value = 0;
         UpdateTextAmountOfGoods();
@@ -340,7 +340,7 @@ public class UIController : MonoBehaviour
     {
         if (!sets[index].buttonClicked)
         {
-            playerData.Dia(playerData.Dia() + 1000);
+            playerData.SetUnitValue("Diamond", 1000);
             sets[index].buttonClicked = true;
             sets[index].button.interactable = false;
         }
