@@ -29,11 +29,10 @@ public class UIController : MonoBehaviour
     public GameObject mapWindow;
     public GameObject bookWindow;
     
-    [Header("골드, 다이아 변환 패널")]
-
+    [Header("골드 변환 패널")]
     private GameObject changeWindowPanel;
     public Text windowTitleText; // Window Title Text UI 요소
-    public bool isGoldButtonClicked = false; //골드, 다이아버튼 어떤걸 클릭했는지 확인하는 변수
+    public bool isGoldButtonClicked = false; 
     public bool isPanelOn = false;
 
     [Header("slider 패널")]
