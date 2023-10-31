@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class UIController : MonoBehaviour
 {
-    CameraSwitcher cameraSwitcher;
+    // CameraSwitcher cameraSwitcher;
     PlayerData playerData;
     WorkerScript workerScript;
 
@@ -89,7 +89,7 @@ public class UIController : MonoBehaviour
         btnMap = GameObject.Find("Button_Map");
         btnBook = GameObject.Find("Button_Book");
         workerScript = FindAnyObjectByType<WorkerScript>();
-        cameraSwitcher = FindAnyObjectByType<CameraSwitcher>();
+        // cameraSwitcher = FindAnyObjectByType<CameraSwitcher>();
 
 
 
@@ -100,6 +100,21 @@ public class UIController : MonoBehaviour
         warningWindow.SetActive(false);
         
     }
+    // void OnEnable()
+    // {
+    // 	  // 씬 매니저의 sceneLoaded에 체인을 건다.
+    //     SceneManager.sceneLoaded += OnSceneLoaded;
+    // }
+    // void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    // {
+    //     Debug.Log("OnSceneLoaded: " + scene.name);
+    //     Debug.Log(mode);
+    // }
+
+    // void OnDisable()
+    // {
+    //     SceneManager.sceneLoaded -= OnSceneLoaded;
+    // }
 
     private void Update()
     {
@@ -138,11 +153,11 @@ public class UIController : MonoBehaviour
             panelStore.SetActive(panel == panelStore);
         }
     }
-    public void OnBtnForest()
-    {
-        SceneManager.LoadScene("StageScene"); 
-        cameraSwitcher.ForestCam();
-    }
+    // public void OnBtnForest()
+    // {
+    //     SceneManager.LoadScene("StageScene"); 
+    //     cameraSwitcher.ForestCam();
+    // }
 
     public void OnBtnConstruction()
     {
