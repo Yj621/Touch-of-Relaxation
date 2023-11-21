@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     // CameraSwitcher cameraSwitcher;
     PlayerData playerData;
     WorkerScript workerScript;
+    Build build;
 
     [Header ("메뉴 패널")]
     public GameObject panelConstruction;
@@ -28,8 +29,16 @@ public class UIController : MonoBehaviour
     public Text energyText;
     public GameObject mapWindow;
     public GameObject bookWindow;
+
+
+    [Header ("건설 버튼")]
+    public Text lvTextBuild;
+    public Text moneyTextBuild;
+
+    private int level = 1;
+    private int money = 100;
     
-    [Header("골드 변환 패널")]
+    [Header ("골드 변환 패널")]
     private GameObject changeWindowPanel;
     public Text windowTitleText; // Window Title Text UI 요소
     public bool isGoldButtonClicked = false; 
@@ -88,6 +97,7 @@ public class UIController : MonoBehaviour
         btnMap = GameObject.Find("Button_Map");
         btnBook = GameObject.Find("Button_Book");
         workerScript = FindAnyObjectByType<WorkerScript>();
+        build = FindAnyObjectByType<Build>();
         // cameraSwitcher = FindAnyObjectByType<CameraSwitcher>();
 
 
@@ -152,12 +162,35 @@ public class UIController : MonoBehaviour
             panelStore.SetActive(panel == panelStore);
         }
     }
-    // public void OnBtnForest()
-    // {
-    //     SceneManager.LoadScene("StageScene"); 
-    //     cameraSwitcher.ForestCam();
-    // }
+    //맵 버튼
+    public void OnBtnForest()
+    {
+        SceneManager.LoadScene("ForestStage"); 
+        mapWindow.SetActive(false);
+    }
 
+    public void OnBtnCity()
+    {
+        SceneManager.LoadScene("CtiyStage"); 
+        mapWindow.SetActive(false);
+    }
+    public void OnBtnCountry()
+    {
+        SceneManager.LoadScene("CountrySideStage"); 
+        mapWindow.SetActive(false);
+    }
+    public void OnBtnSea()
+    {
+        SceneManager.LoadScene("SeaStage"); 
+        mapWindow.SetActive(false);
+    }
+    public void OnBtnVillage()
+    {
+        SceneManager.LoadScene("VillageStage"); 
+        mapWindow.SetActive(false);
+    }
+
+    //메뉴버튼
     public void OnBtnConstruction()
     {
         SetPanelActive(panelConstruction);
@@ -228,7 +261,6 @@ public class UIController : MonoBehaviour
 
     }
 
-    
 
     public void ChangeWindowClose()
     {
@@ -268,7 +300,7 @@ public class UIController : MonoBehaviour
 
     public void IncreaseSliderValue()
     {
-        // Slider의 현재 값에서 10 증가
+        // Slider의 현재 값에서 1 증가
         slider.value += 1;
         UpdateTextAmountOfGoods();
     }
@@ -363,6 +395,19 @@ public class UIController : MonoBehaviour
         public Button button;
         public bool buttonClicked=false;
         public int index;
+    }
+
+    public void OnBtnBuild()
+    {
+        level++;
+        lvTextBuild.text = "lv." + level.ToString("D3");
+
+        // 돈 증가
+        money += 300;
+        moneyTextBuild.text = money.ToString();
+        // 돈 소비        
+        playerData.SetUnitValue("Gold", -money);
+        build.build();
     }
 }
 

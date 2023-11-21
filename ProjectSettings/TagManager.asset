@@ -9,6 +9,8 @@ TagManager:
   - Ground
   - OutTarget
   - ArriveTarget
+  - Canvas
+  - Worker
   layers:
   - Default
   - TransparentFX

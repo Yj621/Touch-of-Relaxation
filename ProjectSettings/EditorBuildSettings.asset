@@ -11,7 +11,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HomeStage.unity
     guid: aac946a17209f264d853de1b25d7a492
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StageScene.unity
     guid: ee5002a752197d34da2130e902f0d713
+  - enabled: 1
+    path: Assets/Scenes/ForestStage.unity
+    guid: bab955113385ee24daaf67f899377096
+  - enabled: 1
+    path: Assets/Scenes/CtiyStage.unity
+    guid: 8dccba79467705a4c81e7a7d72431753
+  - enabled: 1
+    path: Assets/Scenes/CountrySideStage.unity
+    guid: 6dd46186c4b6a12489de634243592744
+  - enabled: 1
+    path: Assets/Scenes/SeaStage.unity
+    guid: 3846c950add10a04d853fd78219656a3
+  - enabled: 1
+    path: Assets/Scenes/VillageStage.unity
+    guid: 6b8905b32c0cd2f46a0f1d2a51dec0b0
   m_configObjects: {}
