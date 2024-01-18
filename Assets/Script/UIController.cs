@@ -227,6 +227,30 @@ public class UIController : MonoBehaviour
         mapWindow.SetActive(false);
     }    
     
+    public void OnBtnHome()
+    {
+            // 현재 로드된 씬의 이름을 가져옵니다.
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        // 만약 현재 씬의 이름이 "HomeStage"이면 동작X
+        if (currentSceneName != "HomeStage")
+        {
+            // "HomeStage" 씬이 로드되어 있지 않은 경우에만 로드
+            if (!SceneManager.GetSceneByName("HomeStage").isLoaded)
+            {
+                SceneManager.LoadScene("HomeStage");
+            }
+            else
+            {
+                Debug.Log("이미 홈맵입니다.");
+            }
+        }
+        else
+        {
+            Debug.Log("이미 홈맵입니다.");
+        }
+    }
+
     public void OnBtnBook()
     {
         bookWindow.SetActive(true);
