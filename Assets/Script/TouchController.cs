@@ -64,7 +64,7 @@ public class TouchController : MonoBehaviour
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(touchPos);
             Physics.Raycast(ray, out hit);
-            Debug.Log(hit.collider.gameObject.name);
+
             if (hit.collider != null && (hit.collider.tag == "TouchPossible" || hit.collider.tag == "ArriveTarget") && uiController.isPanelOn==false)
             {
                 GameObject CurrentTouch = hit.transform.gameObject;

@@ -5,6 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
+enum Unit
+{
+    GOLD=1,
+    GARBAGE,
+    ENERGY,
+    DIAMOND
+};
+
 public class UIController : MonoBehaviour
 {
     // CameraSwitcher cameraSwitcher;
@@ -54,6 +62,7 @@ public class UIController : MonoBehaviour
     public Text garbage;
     public GameObject warningWindow;
     public GameObject windowTitle;
+    public int unitIndex;
     
     [Header("도감 패널")]
     public Button[] buttons; // 버튼 배열
@@ -131,10 +140,10 @@ public class UIController : MonoBehaviour
         menu.transform.localPosition = Vector3.MoveTowards(menu.transform.localPosition, targetPosition, animationSpeed * Time.deltaTime);
         progressGage.fillAmount = (float)DataManager.instance.player.ConfirmGage("Main");
 
-        garbage.text = playerData.MyUnitToString("Garbage").ToString();
-        energyText.text = playerData.MyUnitToString("Energy").ToString();
-        goldText.text = playerData.MyUnitToString("Gold").ToString();
-        diaText.text = playerData.MyUnitToString("Diamond").ToString();
+        garbage.text = playerData.MyUnitToString((int)Unit.GARBAGE).ToString();
+        energyText.text = playerData.MyUnitToString((int)Unit.ENERGY).ToString();
+        goldText.text = playerData.MyUnitToString((int)Unit.GOLD).ToString();
+        diaText.text = playerData.MyUnitToString((int)Unit.DIAMOND).ToString();
 
 
         // workerScript.special이 true이고 IndexZero 함수가 아직 실행되지 않았다면 실행합니다.
@@ -150,6 +159,11 @@ public class UIController : MonoBehaviour
             isFirst = true; // IndexZero 함수를 실행했으므로 플래그를 true로 설정합니다.
         }
 
+        playerData.ConvertUnit((int)Unit.GOLD);
+        playerData.ConvertUnit((int)Unit.ENERGY);
+        playerData.ConvertUnit((int)Unit.GARBAGE);
+        playerData.ConvertUnit((int)Unit.DIAMOND);
+        UpdateTextAmountOfGoods();
     }
 
     private void SetPanelActive(GameObject panel)
@@ -162,31 +176,34 @@ public class UIController : MonoBehaviour
             panelStore.SetActive(panel == panelStore);
         }
     }
+
+    #region 버튼 관련 함수들
+
     //맵 버튼
     public void OnBtnForest()
     {
-        SceneManager.LoadScene("ForestStage"); 
+        SceneManager.LoadScene("ForestStage");
         mapWindow.SetActive(false);
     }
 
     public void OnBtnCity()
     {
-        SceneManager.LoadScene("CtiyStage"); 
+        SceneManager.LoadScene("CtiyStage");
         mapWindow.SetActive(false);
     }
     public void OnBtnCountry()
     {
-        SceneManager.LoadScene("CountrySideStage"); 
+        SceneManager.LoadScene("CountrySideStage");
         mapWindow.SetActive(false);
     }
     public void OnBtnSea()
     {
-        SceneManager.LoadScene("SeaStage"); 
+        SceneManager.LoadScene("SeaStage");
         mapWindow.SetActive(false);
     }
     public void OnBtnVillage()
     {
-        SceneManager.LoadScene("VillageStage"); 
+        SceneManager.LoadScene("VillageStage");
         mapWindow.SetActive(false);
     }
 
@@ -225,11 +242,11 @@ public class UIController : MonoBehaviour
     public void OnBtnMapClose()
     {
         mapWindow.SetActive(false);
-    }    
-    
+    }
+
     public void OnBtnHome()
     {
-            // 현재 로드된 씬의 이름을 가져옵니다.
+        // 현재 로드된 씬의 이름을 가져옵니다.
         string currentSceneName = SceneManager.GetActiveScene().name;
 
         // 만약 현재 씬의 이름이 "HomeStage"이면 동작X
@@ -255,41 +272,31 @@ public class UIController : MonoBehaviour
     {
         bookWindow.SetActive(true);
     }
-    
+
     public void OnBtnBookClose()
     {
         bookWindow.SetActive(false);
     }
-
 
     public void MapChange()
     {
         SceneManager.LoadScene("StageScene");
     }
 
-    //골드 버튼 클릭
-    public void GoldButtonClick()
-    {
-        isGoldButtonClicked = true;
-        SetCurrentEnergy(int.Parse(energyText.text)); // SetCurrentEnergy 메서드를 호출할 때도 파라미터로 energy 값을 전달
+
+    #endregion 버튼 관련 함수들
 
 
-        if (changeWindowPanel.activeSelf)
-        {
-            changeWindowPanel.SetActive(false);
-            ChangeWindowFalse();
-            windowTitleText.text = "골드량 선택";
-        }
 
-        isPanelOn = true;
-
-    }
-
+    #region 재화 변경 관련
 
     public void ChangeWindowClose()
     {
         changeWindowPanel.SetActive(false);
         Invoke("ChagePanelStateFalse", 0.1f);
+        textAmountOfGoods.text = "0";
+        slider.value = 0;
+        unitIndex = 0;
     }
 
     public void ChangeWindowFalse()
@@ -306,6 +313,8 @@ public class UIController : MonoBehaviour
         if (!changeWindowPanel.activeSelf && !isPanelOn)
         {
             changeWindowPanel.SetActive(true);
+            Debug.Log("변환패널 켜짐");
+            slider.maxValue = playerData.UnitValue((int)Unit.ENERGY, 0);
             isPanelOn = true;
         }
     }
@@ -315,55 +324,63 @@ public class UIController : MonoBehaviour
         isPanelOn = false;
     }
 
+    public void IncreaseSliderValue()
+    {
+        if (playerData.UnitValue((int)Unit.ENERGY, unitIndex + 1) > 0 && unitIndex < 26)
+        {
+            slider.value = 0;
+            ++unitIndex;
+            slider.maxValue = playerData.UnitValue((int)Unit.ENERGY, unitIndex);
+        }
+    }
 
     public void DecreaseSliderValue()
     {
-        slider.value -= 1;
-        UpdateTextAmountOfGoods();
-    }
-
-    public void IncreaseSliderValue()
-    {
-        // Slider의 현재 값에서 1 증가
-        slider.value += 1;
-        UpdateTextAmountOfGoods();
+        if (unitIndex > 0)
+        {
+            slider.value = 0;
+            --unitIndex;
+            slider.maxValue = playerData.UnitValue((int)Unit.ENERGY, unitIndex);
+        }
     }
 
     public void UpdateTextAmountOfGoods()
     {
+        int[] unit = { };
+
+        char str = (char)(65 + unitIndex);
+
         // Slider의 값을 Text UI에 표시
-        textAmountOfGoods.text = slider.value.ToString();
+        textAmountOfGoods.text = slider.value.ToString() + str.ToString();
     }
 
-    // 현재 energy 값을 설정하는 메서드
-    public void SetCurrentEnergy(int energyValue)
-    {
-        //slider.maxValue = playerData.Energy(); // Slider의 maxValue를 현재 energy 값으로 설정
-        slider.value = 0; // Slider의 값을 초기화
-        UpdateTextAmountOfGoods();
-    }
-
-    
     // 확인 버튼 클릭
     public void ConfirmButtonClick()
     {
         int amount = (int)slider.value; // Slider의 값을 정수로 변환
-        if (isGoldButtonClicked)
+
+        if (playerData.UnitValue((int)Unit.ENERGY, unitIndex) >= amount)
         {
-            playerData.SetUnitValue("Energy", -amount);
-            playerData.SetUnitValue("Gold", amount);
+            playerData.SetUnitValue((int)Unit.ENERGY, -amount, unitIndex);
+            playerData.SetUnitValue((int)Unit.GOLD, amount, unitIndex);
+            print("변환됨");
         }
         slider.value = 0;
-        UpdateTextAmountOfGoods();
+        unitIndex = 0;
+        slider.maxValue = playerData.UnitValue((int)Unit.ENERGY, unitIndex);
     }
+
     //초기화 버튼 클릭
     public void CancleButtonClick()
     {
         textAmountOfGoods.text = "0";
-
-        // 'slider.value'를 0으로 초기화
         slider.value = 0;
+        unitIndex = 0;
+        slider.maxValue = playerData.UnitValue((int)Unit.ENERGY, unitIndex);
     }
+    
+    #endregion 재화 변경 관련
+
 
     public void WarningWindowClose()
     {
@@ -375,7 +392,7 @@ public class UIController : MonoBehaviour
     {
         if (!sets[index].buttonClicked)
         {
-            playerData.SetUnitValue("Diamond", 1000);
+            playerData.SetUnitValue((int)Unit.DIAMOND, 1000);
             sets[index].buttonClicked = true;
             sets[index].button.interactable = false;
         }
@@ -421,17 +438,21 @@ public class UIController : MonoBehaviour
         public int index;
     }
 
+    //물어보기
     public void OnBtnBuild()
     {
-        level++;
-        lvTextBuild.text = "lv." + level.ToString("D3");
+        if (playerData.UnitValue((int)Unit.GOLD, 0) >= money)
+        {
+            level++;
+            lvTextBuild.text = "lv." + level.ToString("D3");
+            // 돈 소비        
+            playerData.SetUnitValue((int)Unit.GOLD, -money);
+            build.build();
 
-        // 돈 증가
-        money += 300;
-        moneyTextBuild.text = money.ToString();
-        // 돈 소비        
-        playerData.SetUnitValue("Gold", -money);
-        build.build();
+            // 돈 증가
+            money += 300;
+            moneyTextBuild.text = money.ToString();
+        }
     }
 }
 

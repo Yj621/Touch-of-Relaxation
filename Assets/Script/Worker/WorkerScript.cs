@@ -96,7 +96,7 @@ public class WorkerScript : MonoBehaviour
         //쓰레기를 주운 후 건물에 도착함
         if (collision.gameObject.tag == "ArriveTarget" && isHaveGarbage)
         {
-            DataManager.instance.player.SetUnitValue("Garbage", 5);
+            DataManager.instance.player.SetUnitValue((int)Unit.GARBAGE, 5);
             DataManager.instance.player.IncreaseGage("Main", 5);
             isHaveGarbage = false;
             GoOut();

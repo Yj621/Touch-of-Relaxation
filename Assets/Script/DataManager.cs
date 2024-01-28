@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using JetBrains.Annotations;
 
 enum StageNum { main = 0, city}
+
 
 public class PlayerData
 {
@@ -44,106 +46,66 @@ public class PlayerData
             _gold[i] = 0;
             _diamond[i] = 0;
         }
+        _energy[0] = 10100;
     }
 
+    public int[] Gold()
+    {
+        return _gold;
+    }
+
+    #region 재화 관련 함수들
+
     //재화 단위 변경 코드
-    public void ConvertUnit(string s)
+    public void ConvertUnit(int _unitNum)
     {
         int[] unit = { };
         int index = 0;
-        if (s == "Gold")
-        {
-            unit = _gold;
-        }
-        else if(s == "Garbage")
-        {
-            unit = _garbage;
-        }
-        else if (s == "Energy")
-        {
-            unit = _energy;
-        }
-        else if (s == "Diamon")
-        {
-            unit = _diamond;
-        }
 
-        // 내 자산의 현재 상태값을 알 수 있도록 하는 코드
-        for (int i = 0; i < 26; i++)
-        {
-            if (unit[i] > 0)
-            {
-                index = i;
-            }
-        }
+        UintCurrentIndex(_unitNum, ref unit);
+
         // index값 만큼 돈 단위를 정리하는 반복문을 돌린다.
         for (int i = 0; i <= index; i++)
         {
             // 만약, i번째 배열에 돈이 10000이상이라면
-            // 거기서 1000을 빼고 윗 배열에 1을 더해준다.
+            // 거기서 10000을 빼고 윗 배열에 1을 더해준다.
             if (unit[i] >= 10000)
             {
-                unit[i] -= 1000;
+                unit[i] -= 10000;
                 unit[i + 1] += 1;
             }
             // 만약, i번째 배열의 값이 음수라면
             if (unit[i] < 0)
             {
                 // 만약, i의 값이 나의 현재 자산의 값보다 작으면
-                // 윗 배열에서 1을 빼고 음수인 i번째 배열에 1000을 더한다.
+                // 윗 배열에서 1을 빼고 음수인 i번째 배열에 10000을 더한다.
                 if (index > i)
                 {
-                    unit[i + 1] -= 1;//??
-                    unit[i] += 1000;
+                    unit[i + 1] -= 1;
+                    unit[i] += 10000;
                 }
             }
         }
     }
 
     //재화를 string으로 변환
-    public string MyUnitToString(string s)
+    public string MyUnitToString(int _unitNum)
     {
         int[] unit = new int[26];
         int index = 0;
-        if (s == "Gold")
-        {
-            unit = _gold;
-        }
-        else if (s == "Garbage")
-        {
-            unit = _garbage;
-        }
-        else if (s == "Energy")
-        {
-            unit = _energy;
-        }
-        else if (s == "Diamon")
-        {
-            unit = _diamond;
-        }
-
-        for (int i = 0; i < 26; i++)
-        {
-            if (unit[i] > 0)
-            {
-                index = i;
-            }
-        }
-
+        index = UintCurrentIndex(_unitNum, ref unit);
         // 배열에 있는 값을 플레이어가 볼 수 있는 재화의 형태로 표현
         float a = unit[index];
-        // 만약, index가 0보다 크다면 소수점이 나온다는 것
         if (index > 0)
         {
             float b = unit[index - 1];
-            a += b / 1000;
+            a += b / 10000;
         }
-        // 만약, 0과 같다면 바로 출력
         if (index == 0)
         {
             a += 0;
         }
-        // 자료형에서 65부터 A를 표현하기 때문에 쓰는 코드 
+
         char str = (char)(65 + index);
         string p;
         p = (float)(Math.Truncate(a * 100) / 100) + str.ToString();
@@ -153,43 +115,18 @@ public class PlayerData
     }
 
     //재화 양 변경
-    public void SetUnitValue(string s, int val)
+    public void SetUnitValue(int _unitNum, int _amount, int _index = 0)
     {
-        int[] unit = { };
-        int index = 0;
-        if (s == "Gold")
-        {
-            unit = _gold;
-        }
-        else if (s == "Garbage")
-        {
-            unit = _garbage;
-        }
-        else if (s == "Energy")
-        {
-            unit = _energy;
-        }
-        else if (s == "Diamon")
-        {
-            unit = _diamond;
-        }
-
-        for (int i = 0; i < 26; i++)
-        {
-            if (unit[i] > 0)
-            {
-                index = i;
-            }
-        }
-
-        unit[index] += val;
+        int[] unit = new int[26];
+        UintCurrentIndex(_unitNum, ref unit);
+        unit[_index] += _amount;
     }
 
     //재화를 가지고 있는지
     public bool IsHaveUnit(string s)
     {
         int[] unit = { };
-        int index = 0;
+
         if (s == "Gold")
         {
             unit = _gold;
@@ -213,6 +150,75 @@ public class PlayerData
 
     }
 
+    //재화 값 반환
+    public int UnitValue(int _unitNum, int _index = 0)    
+    {
+        int[] unit = { };
+
+        switch (_unitNum)
+        {
+            case (int)Unit.GOLD:
+                return _gold[_index];
+
+            case (int)Unit.GARBAGE:
+                return _garbage[_index];
+                break;
+
+            case (int)Unit.ENERGY:
+                return _energy[_index];
+                break;
+
+            case (int)Unit.DIAMOND:
+                return _diamond[_index];
+                break;
+
+            default:
+                break;
+        }
+
+        return 0;
+    }
+
+    //현재 재화 인덱스 구하기
+    public int UintCurrentIndex(int _unitNum, ref int[] _unit)
+    {
+        int index = 0;
+
+        switch (_unitNum)
+        {
+            case (int)Unit.GOLD:
+                _unit = _gold;
+                break;
+
+            case (int)Unit.GARBAGE:
+                _unit = _garbage;
+                break;
+
+            case (int)Unit.ENERGY:
+                _unit = _energy;
+                break;
+
+            case (int)Unit.DIAMOND:
+                _unit = _diamond;
+                break;
+
+            default:
+                break;
+        }
+
+        for (int i = 0; i < 26; i++)
+        {
+            if (_unit[i] > 0)
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+
+    #endregion 재화 관련 함수들
+
     public double ConfirmGage(string s)
     {
         int index = 0;
@@ -229,7 +235,7 @@ public class PlayerData
         {
             index = (int)StageNum.main;
         }
-        _stageGage[index] += (float)(val / 1000000.0f);
+        _stageGage[index] += (float)(val / 100000.0f);
         Debug.Log((float)_stageGage[index]);
     }
 
