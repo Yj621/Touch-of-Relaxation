@@ -457,11 +457,12 @@ public class UIController : MonoBehaviour
             moneyTextBuild.text = money.ToString();
         }
     }
-    public void test()
-    {
-        lvTextBuild.text = "Lv." + level.ToString("D3");
-        level+=90;
-    }
+    //테스트 버튼
+    // public void test()
+    // {
+    //     lvTextBuild.text = "Lv." + level.ToString("D3");
+    //     level+=90;
+    // }
 }
 
 
