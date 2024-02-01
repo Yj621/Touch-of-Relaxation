@@ -43,7 +43,7 @@ public class UIController : MonoBehaviour
     public Text lvTextBuild;
     public Text moneyTextBuild;
 
-    private int level = 1;
+    public int level = 0;
     private int money = 100;
     
     [Header ("골드 변환 패널")]
@@ -392,7 +392,7 @@ public class UIController : MonoBehaviour
     {
         if (!sets[index].buttonClicked)
         {
-            playerData.SetUnitValue((int)Unit.DIAMOND, 1000);
+            playerData.SetUnitValue((int)Unit.DIAMOND, +1000);
             sets[index].buttonClicked = true;
             sets[index].button.interactable = false;
         }
@@ -443,16 +443,24 @@ public class UIController : MonoBehaviour
     {
         if (playerData.UnitValue((int)Unit.GOLD, 0) >= money)
         {
-            level++;
-            lvTextBuild.text = "lv." + level.ToString("D3");
+            lvTextBuild.text = "Lv." + level.ToString("D3");
             // 돈 소비        
             playerData.SetUnitValue((int)Unit.GOLD, -money);
-            build.build();
+          //  playerData.SetUnitValue((int)Unit.GARBAGE, -garbage);
 
-            // 돈 증가
+            build.build();
+            level++;
+
+
+            // 쓰여있는 돈 증가
             money += 300;
             moneyTextBuild.text = money.ToString();
         }
+    }
+    public void test()
+    {
+        lvTextBuild.text = "Lv." + level.ToString("D3");
+        level+=90;
     }
 }
 

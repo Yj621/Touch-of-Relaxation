@@ -6,9 +6,11 @@ public class Build : MonoBehaviour
 {
     public GameObject[] buildings;
     private int currentBuildingIndex = 0;
+    private UIController uIController;
 
     void Start()
     {
+        uIController = FindAnyObjectByType<UIController>();
         foreach (GameObject building in buildings)
         {
             building.SetActive(false);
@@ -17,10 +19,31 @@ public class Build : MonoBehaviour
 
     public void build()
     {
-        if (currentBuildingIndex < buildings.Length)
+        if (uIController.level == 1)
         {
-            buildings[currentBuildingIndex].SetActive(true);
-            currentBuildingIndex++;
+            ActivateBuilding(1);
+        }
+        else if(uIController.level == 200)
+        {
+            ActivateBuilding(2);            
+        }
+        else if (uIController.level == 500)
+        {
+            ActivateBuilding(3);
+        }
+        else if (uIController.level == 700)
+        {
+            ActivateBuilding(4);
         }
     }
+
+    private void ActivateBuilding(int index)
+    {
+        if (currentBuildingIndex <= index && index < buildings.Length)
+        {
+            buildings[index].SetActive(true);
+            currentBuildingIndex = index + 1;
+        }
+    }
+
 }
