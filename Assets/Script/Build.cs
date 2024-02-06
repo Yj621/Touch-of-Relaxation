@@ -19,22 +19,26 @@ public class Build : MonoBehaviour
 
     public void build()
     {
-        if (uIController.level == 1)
+        if (uIController.b_level == 1)
         {
             ActivateBuilding(1);
         }
-        else if(uIController.level == 200)
+        else if(uIController.b_level == 200)
         {
             ActivateBuilding(2);            
         }
-        else if (uIController.level == 500)
+        else if (uIController.b_level == 500)
         {
             ActivateBuilding(3);
         }
-        else if (uIController.level == 700)
+        else if (uIController.b_level == 700)
         {
             ActivateBuilding(4);
         }
+        // else
+        // {
+            
+        // }
     }
 
     private void ActivateBuilding(int index)

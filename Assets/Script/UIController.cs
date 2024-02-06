@@ -19,6 +19,7 @@ public class UIController : MonoBehaviour
     PlayerData playerData;
     WorkerScript workerScript;
     Build build;
+    NoticeUI _notice;
 
     [Header ("메뉴 패널")]
     public GameObject panelConstruction;
@@ -42,9 +43,11 @@ public class UIController : MonoBehaviour
     [Header ("건설 버튼")]
     public Text lvTextBuild;
     public Text moneyTextBuild;
+    public Text garbageTextBuild;
+    public int b_level = 0;
+    private int b_garbage = 50;
 
-    public int level = 0;
-    private int money = 100;
+    private int b_money = 50;
     
     [Header ("골드 변환 패널")]
     private GameObject changeWindowPanel;
@@ -96,7 +99,6 @@ public class UIController : MonoBehaviour
     private void Start()
     {
         playerData = DataManager.instance.player;
-
         menu = GameObject.Find("Menu");
         targetPosition = menu.transform.localPosition;
         menuImg = GameObject.Find("Img_Menu");
@@ -107,8 +109,8 @@ public class UIController : MonoBehaviour
         btnBook = GameObject.Find("Button_Book");
         workerScript = FindAnyObjectByType<WorkerScript>();
         build = FindAnyObjectByType<Build>();
+        _notice = FindAnyObjectByType<NoticeUI>();
         // cameraSwitcher = FindAnyObjectByType<CameraSwitcher>();
-
 
 
         slider.value = 0;
@@ -116,7 +118,6 @@ public class UIController : MonoBehaviour
         mapWindow.SetActive(false);
         changeWindowPanel.SetActive(false);
         warningWindow.SetActive(false);
-        
     }
     // void OnEnable()
     // {
@@ -164,6 +165,9 @@ public class UIController : MonoBehaviour
         playerData.ConvertUnit((int)Unit.GARBAGE);
         playerData.ConvertUnit((int)Unit.DIAMOND);
         UpdateTextAmountOfGoods();
+
+        Debug.Log("초기 돈 : " + playerData.UnitValue((int)Unit.GOLD, 0));
+        Debug.Log("초기 쓰레기 : " + playerData.UnitValue((int)Unit.GARBAGE, 0));
     }
 
     private void SetPanelActive(GameObject panel)
@@ -363,7 +367,11 @@ public class UIController : MonoBehaviour
         {
             playerData.SetUnitValue((int)Unit.ENERGY, -amount, unitIndex);
             playerData.SetUnitValue((int)Unit.GOLD, amount, unitIndex);
-            print("변환됨");
+            _notice.SUB("변환되었습니다.");
+        }
+        else if(playerData.UnitValue((int)Unit.ENERGY, unitIndex) < amount)
+        {
+            _notice.SUB("에너지가 부족합니다.");
         }
         slider.value = 0;
         unitIndex = 0;
@@ -441,28 +449,53 @@ public class UIController : MonoBehaviour
     //물어보기
     public void OnBtnBuild()
     {
-        if (playerData.UnitValue((int)Unit.GOLD, 0) >= money)
+        if (playerData.UnitValue((int)Unit.GOLD, 0) >= b_money && playerData.UnitValue((int)Unit.GARBAGE, 0) >= b_garbage )
         {
-            lvTextBuild.text = "Lv." + level.ToString("D3");
             // 돈 소비        
-            playerData.SetUnitValue((int)Unit.GOLD, -money);
-          //  playerData.SetUnitValue((int)Unit.GARBAGE, -garbage);
-
+            playerData.SetUnitValue((int)Unit.GOLD, -b_money);
+            //쓰레기 소비
+            playerData.SetUnitValue((int)Unit.GARBAGE, -b_garbage);
+            
+            b_level++;
+            lvTextBuild.text = "Lv." + b_level.ToString("D3");
             build.build();
-            level++;
+            
 
 
             // 쓰여있는 돈 증가
-            money += 300;
-            moneyTextBuild.text = money.ToString();
+            b_money += 50;
+            // 쓰여있는 쓰레기 증가
+            b_garbage += 50;
+            moneyTextBuild.text = b_money.ToString();
+            garbageTextBuild.text = b_garbage.ToString();
+
+            _notice.SUB("건설!");
+            Debug.Log("b_level : " + b_level);
+            Debug.Log("------돈 : " + playerData.UnitValue((int)Unit.GOLD, 0));
+            Debug.Log("------쓰레기 : " + playerData.UnitValue((int)Unit.GARBAGE, 0));
+
+
+        }
+        else if(playerData.UnitValue((int)Unit.GOLD, 0) <= b_money)
+        {
+            // 돈이 부족한 경우에 대한 처리
+            _notice.SUB("돈이 부족합니다!");
+            Debug.Log("------돈 : " + playerData.UnitValue((int)Unit.GOLD, 0));
+
+        }
+        else if(playerData.UnitValue((int)Unit.GARBAGE, 0) <= b_garbage)
+        {
+            _notice.SUB("쓰레기가 부족합니다!");
+            Debug.Log("------쓰레기 : " + playerData.UnitValue((int)Unit.GARBAGE, 0));
+
         }
     }
-    //테스트 버튼
-    // public void test()
-    // {
-    //     lvTextBuild.text = "Lv." + level.ToString("D3");
-    //     level+=90;
-    // }
+  //  테스트 버튼
+    public void test()
+    {
+        lvTextBuild.text = "Lv." + b_level.ToString("D3");
+        b_level+=99;
+    }
 }
 
 
