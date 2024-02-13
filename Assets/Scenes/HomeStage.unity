@@ -6723,17 +6723,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 844985916}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: OnBtnBook
-        m_Mode: 1
+      - m_Target: {fileID: 1285954949}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &212480351
 MonoBehaviour:
@@ -13435,7 +13435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &430824669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24127,10 +24127,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 844985916}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: OnBtnBookClose
-        m_Mode: 1
+      - m_Target: {fileID: 1285954949}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -25431,17 +25431,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 844985916}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: OnBtnMap
-        m_Mode: 1
+      - m_Target: {fileID: 430824668}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &750718328
 MonoBehaviour:
@@ -28398,7 +28398,6 @@ MonoBehaviour:
   isMenuDown: 0
   energyText: {fileID: 281813379}
   mapWindow: {fileID: 430824668}
-  bookWindow: {fileID: 1285954949}
   lvTextBuild: {fileID: 1309172325}
   moneyTextBuild: {fileID: 1976082343}
   garbageTextBuild: {fileID: 700153399}
@@ -46294,10 +46293,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 844985916}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: OnBtnMapClose
-        m_Mode: 1
+      - m_Target: {fileID: 430824668}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

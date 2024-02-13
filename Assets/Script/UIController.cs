@@ -37,7 +37,6 @@ public class UIController : MonoBehaviour
     public bool isMenuDown = false;
     public Text energyText;
     public GameObject mapWindow;
-    public GameObject bookWindow;
 
 
     [Header ("건설 버튼")]
@@ -113,30 +112,15 @@ public class UIController : MonoBehaviour
         workerScript = FindAnyObjectByType<WorkerScript>();
         build = FindAnyObjectByType<Build>();
         _notice = FindAnyObjectByType<NoticeUI>();
-        // cameraSwitcher = FindAnyObjectByType<CameraSwitcher>();
 
 
         slider.value = 0;
 
+        mapWindow = GameObject.Find("Map_Window");
         mapWindow.SetActive(false);
         changeWindowPanel.SetActive(false);
         warningWindow.SetActive(false);
     }
-    // void OnEnable()
-    // {
-    // 	  // 씬 매니저의 sceneLoaded에 체인을 건다.
-    //     SceneManager.sceneLoaded += OnSceneLoaded;
-    // }
-    // void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    // {
-    //     Debug.Log("OnSceneLoaded: " + scene.name);
-    //     Debug.Log(mode);
-    // }
-
-    // void OnDisable()
-    // {
-    //     SceneManager.sceneLoaded -= OnSceneLoaded;
-    // }
 
     private void Update()
     {
@@ -238,14 +222,14 @@ public class UIController : MonoBehaviour
         menuImg.transform.rotation = isMenuDown ? Quaternion.Euler(0, 0, 90) : startRotation;
     }
 
-    public void OnBtnMap()
-    {
-        mapWindow.SetActive(true);
-    }
-    public void OnBtnMapClose()
-    {
-        mapWindow.SetActive(false);
-    }
+    // public void OnBtnMap()
+    // {
+    //     mapWindow.SetActive(true);
+    // }
+    // public void OnBtnMapClose()
+    // {
+    //     mapWindow.SetActive(false);
+    // }
 
     public void OnBtnHome()
     {
@@ -269,16 +253,6 @@ public class UIController : MonoBehaviour
         {
             Debug.Log("이미 홈맵입니다.");
         }
-    }
-
-    public void OnBtnBook()
-    {
-        bookWindow.SetActive(true);
-    }
-
-    public void OnBtnBookClose()
-    {
-        bookWindow.SetActive(false);
     }
 
     public void MapChange()
@@ -463,12 +437,4 @@ public class UIController : MonoBehaviour
 
         }
     }
-  //  테스트 버튼
-    public void test()
-    {
-        lvTextBuild.text = "Lv." + b_level.ToString("D3");
-        b_level+=99;
-    }
 }
-
-
