@@ -70,8 +70,7 @@ public class UIController : MonoBehaviour
     [Header("도감 패널")]
     public Button[] buttons; // 버튼 배열
     private List<SetItem> sets = new List<SetItem>(); // 세트 리스트
-    private bool isZero = false;
-    private bool isFirst = false;
+    private bool[] isActive = new bool[12];
 
     [Header("진척도 패널")]
     public Image progressGage;
@@ -93,6 +92,10 @@ public class UIController : MonoBehaviour
             set.buttonClicked = false;
             set.index = i;
             sets.Add(set);
+        }
+        for (int i = 0; i<isActive.Length; i++)
+        {
+            isActive[i] = false;
         }
     }
 
@@ -146,19 +149,15 @@ public class UIController : MonoBehaviour
         goldText.text = playerData.MyUnitToString((int)Unit.GOLD).ToString();
         diaText.text = playerData.MyUnitToString((int)Unit.DIAMOND).ToString();
 
-
-        // workerScript.special이 true이고 IndexZero 함수가 아직 실행되지 않았다면 실행합니다.
-        if (workerScript.special1 == true && !isZero)
+        //다이아 도감 확률 패널
+        for (int i = 0; i < workerScript.specialArry.Length; i++)
         {
-            IndexZero();
-            isZero = true; // IndexZero 함수를 실행했으므로 플래그를 true로 설정합니다.
-        }
-        // workerScript.special이 true이고 IndexZero 함수가 아직 실행되지 않았다면 실행합니다.
-        if (workerScript.special2 == true && !isFirst)
-        {
-            IndexFirst();
-            isFirst = true; // IndexZero 함수를 실행했으므로 플래그를 true로 설정합니다.
-        }
+            if (workerScript.specialArry[i] && !isActive[i])
+            {
+                IndexBtnActive(i);
+                isActive[i] = true;
+            }
+        } 
 
         playerData.ConvertUnit((int)Unit.GOLD);
         playerData.ConvertUnit((int)Unit.ENERGY);
@@ -406,38 +405,12 @@ public class UIController : MonoBehaviour
         }
     }
 
-    // 다른 버튼 동작 메서드들 (각 버튼을 별도의 메서드로 처리)
-    public void OnBtnGetDia0()
+
+    public void IndexBtnActive(int index)
     {
-        OnBtnGetDia(0);
+        sets[index].button.interactable = true;
     }
 
-    public void OnBtnGetDia1()
-    {
-        OnBtnGetDia(1);
-    }
-
-    public void OnBtnGetDia2()
-    {
-        OnBtnGetDia(2);
-    }
-
-    public void OnBtnGetDia3()
-    {
-        OnBtnGetDia(3);
-    }
-    public void OnBtnGetDia4()
-    {
-        OnBtnGetDia(4);
-    }
-    public void IndexZero()
-    {
-        sets[0].button.interactable = true;
-    }
-    public void IndexFirst()
-    {
-        sets[1].button.interactable = true;
-    }
     // SetItem 클래스 정의
     private class SetItem
     {
