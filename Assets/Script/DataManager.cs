@@ -4,13 +4,15 @@ using UnityEngine;
 using System;
 using JetBrains.Annotations;
 
-enum StageNum { main = 0, city}
+enum StageNum { MAIN = 0, FOREST, CITY,}
 
 
 public class PlayerData
 {
     StageNum stageNum;
     private string _name;   //플레이어 닉네임
+
+
 
     //worker 관련 
     private int _workerCount;
@@ -47,11 +49,18 @@ public class PlayerData
             _diamond[i] = 0;
         }
         _energy[0] = 10100;
+        _garbage[0] = 10100;
+        _gold[0] = 10100;
     }
 
     public int[] Gold()
     {
         return _gold;
+    }
+
+    public int[] Garbage()
+    {
+        return _garbage;
     }
 
     #region 재화 관련 함수들
@@ -62,7 +71,7 @@ public class PlayerData
         int[] unit = { };
         int index = 0;
 
-        UintCurrentIndex(_unitNum, ref unit);
+        index = UintCurrentIndex(_unitNum, ref unit);
 
         // index값 만큼 돈 단위를 정리하는 반복문을 돌린다.
         for (int i = 0; i <= index; i++)
@@ -115,6 +124,22 @@ public class PlayerData
     }
 
     //재화 양 변경
+
+    public void SetUnitValue(int _unitNum, int[] _minusUnit)
+    {
+        int[] unit = new int[26];
+
+        if (_unitNum == (int)Unit.GOLD)
+            unit = _gold;
+        else
+            unit = _garbage;
+
+        for (int i=0; i<26; ++i)
+        {
+            unit[i] -= _minusUnit[i];
+        }
+
+    }
     public void SetUnitValue(int _unitNum, int _amount, int _index = 0)
     {
         int[] unit = new int[26];
@@ -224,7 +249,11 @@ public class PlayerData
         int index = 0;
         if (s == "Main")
         {
-            index = (int)StageNum.main;
+            index = (int)StageNum.MAIN;
+        }
+        if(s=="Forest")
+        {
+            index = (int)StageNum.FOREST;
         }
         return _stageGage[index];
     }
@@ -233,10 +262,9 @@ public class PlayerData
         int index = 0;
         if(s== "Main")
         {
-            index = (int)StageNum.main;
+            index = (int)StageNum.MAIN;
         }
         _stageGage[index] += (float)(val / 100000.0f);
-        Debug.Log((float)_stageGage[index]);
     }
 
     //전체 정보 최신화
@@ -264,7 +292,7 @@ public class DataManager : MonoBehaviour
     public static DataManager instance;
 
     public PlayerData player = new PlayerData();
-
+    
     private void Awake()
     {
         if(instance == null)

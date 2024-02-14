@@ -13,12 +13,13 @@ enum Unit
     DIAMOND
 };
 
+
 public class UIController : MonoBehaviour
 {
     // CameraSwitcher cameraSwitcher;
     PlayerData playerData;
     WorkerScript workerScript;
-    Build build;
+    StructerController structerController;
     NoticeUI _notice;
 
     [Header ("메뉴 패널")]
@@ -76,6 +77,7 @@ public class UIController : MonoBehaviour
     [Header("진척도 패널")]
     public Image progressGage;
 
+    public List<GameObject> structerList;
 
     private void Awake()
     {
@@ -108,10 +110,11 @@ public class UIController : MonoBehaviour
         btnMap = GameObject.Find("Button_Map");
         btnBook = GameObject.Find("Button_Book");
         workerScript = FindAnyObjectByType<WorkerScript>();
-        build = FindAnyObjectByType<Build>();
+        structerController = FindAnyObjectByType<StructerController>();
         _notice = FindAnyObjectByType<NoticeUI>();
         // cameraSwitcher = FindAnyObjectByType<CameraSwitcher>();
 
+        //structerController.UIInit();
 
         slider.value = 0;
 
@@ -166,8 +169,6 @@ public class UIController : MonoBehaviour
         playerData.ConvertUnit((int)Unit.DIAMOND);
         UpdateTextAmountOfGoods();
 
-        Debug.Log("초기 돈 : " + playerData.UnitValue((int)Unit.GOLD, 0));
-        Debug.Log("초기 쓰레기 : " + playerData.UnitValue((int)Unit.GARBAGE, 0));
     }
 
     private void SetPanelActive(GameObject panel)
@@ -430,6 +431,7 @@ public class UIController : MonoBehaviour
     {
         OnBtnGetDia(4);
     }
+
     public void IndexZero()
     {
         sets[0].button.interactable = true;
@@ -438,6 +440,7 @@ public class UIController : MonoBehaviour
     {
         sets[1].button.interactable = true;
     }
+
     // SetItem 클래스 정의
     private class SetItem
     {
@@ -447,49 +450,7 @@ public class UIController : MonoBehaviour
     }
 
     //물어보기
-    public void OnBtnBuild()
-    {
-        if (playerData.UnitValue((int)Unit.GOLD, 0) >= b_money && playerData.UnitValue((int)Unit.GARBAGE, 0) >= b_garbage )
-        {
-            // 돈 소비        
-            playerData.SetUnitValue((int)Unit.GOLD, -b_money);
-            //쓰레기 소비
-            playerData.SetUnitValue((int)Unit.GARBAGE, -b_garbage);
-            
-            b_level++;
-            lvTextBuild.text = "Lv." + b_level.ToString("D3");
-            build.build();
-            
-
-
-            // 쓰여있는 돈 증가
-            b_money += 50;
-            // 쓰여있는 쓰레기 증가
-            b_garbage += 50;
-            moneyTextBuild.text = b_money.ToString();
-            garbageTextBuild.text = b_garbage.ToString();
-
-            _notice.SUB("건설!");
-            Debug.Log("b_level : " + b_level);
-            Debug.Log("------돈 : " + playerData.UnitValue((int)Unit.GOLD, 0));
-            Debug.Log("------쓰레기 : " + playerData.UnitValue((int)Unit.GARBAGE, 0));
-
-
-        }
-        else if(playerData.UnitValue((int)Unit.GOLD, 0) <= b_money)
-        {
-            // 돈이 부족한 경우에 대한 처리
-            _notice.SUB("돈이 부족합니다!");
-            Debug.Log("------돈 : " + playerData.UnitValue((int)Unit.GOLD, 0));
-
-        }
-        else if(playerData.UnitValue((int)Unit.GARBAGE, 0) <= b_garbage)
-        {
-            _notice.SUB("쓰레기가 부족합니다!");
-            Debug.Log("------쓰레기 : " + playerData.UnitValue((int)Unit.GARBAGE, 0));
-
-        }
-    }
+    
   //  테스트 버튼
     public void test()
     {
