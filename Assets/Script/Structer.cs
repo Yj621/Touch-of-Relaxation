@@ -33,11 +33,20 @@ public class Structer : MonoBehaviour
             particle.SetActive(false);
         }
     }
-
     public void Particle(int index)
-    {
-        particles[index].SetActive(true);
+    {    
+        if (index >= 0 && index < particles.Length)
+        {
+            Debug.Log("index: " +index);
+            particles[index].SetActive(true);
+            //particles[0].SetActive(true);     
+        }
+        else
+        {
+            Debug.LogError("Invalid index for particles array: " + index);
+        }
     }
+
 
     private void Update()
     {

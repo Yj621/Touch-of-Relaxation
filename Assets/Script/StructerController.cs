@@ -64,7 +64,7 @@ public class StructerController : MonoBehaviour
             uIController.moneyTextBuild.text = nowStructer.NeedGoldToString();
             uIController.garbageTextBuild.text = nowStructer.NeedGarbageToString();
 
-            build();
+            Build();
             _notice.SUB("건설!");
         }
         else
@@ -74,43 +74,86 @@ public class StructerController : MonoBehaviour
 
     }
 
-    public void build()
-    { 
-        Debug.Log("level : "+ structer.level);
-        if (uIController.b_level == 1)
-        {
-            ActivateBuilding(1);
-        }
+    public void Build()
+    {
+        int clickNum = EventSystem.current.currentSelectedGameObject.GetComponent<ButtonNum>().GetButtonNuum();
+        Structer nowStructer = structerList[clickNum].GetComponent<Structer>();
+        int currentLevel = nowStructer.GetLevel();
+        Debug.Log("현재 레벨: " + currentLevel);
 
-        else if (uIController.b_level == 200)
-        {
-            ActivateBuilding(2);
-        }
-        else if (uIController.b_level == 500)
-        {
-            ActivateBuilding(3);
-        }
+        // 건물 활성화
+        ActivateBuilding(currentLevel, clickNum);
 
-        else if (uIController.b_level == 700)
-        {
-            ActivateBuilding(4);
-        }
+        // 파티클 재생
+        PlayParticleByLevel(currentLevel);
+    }
 
-        if (uIController.b_level >= 1 && uIController.b_level < 200)
+    private void ActivateBuilding(int currentLevel, int clickNum)
+    {
+        // 에너지 장치
+        if (clickNum == 0)
         {
+            switch (currentLevel)
+            {
+                case 1:
+                    ActivateBuilding(0);
+                    break;
+                case 200:
+                    ActivateBuilding(3);
+                    break;
+                case 500:
+                    ActivateBuilding(6);
+                    break;
+                case 700:
+                    ActivateBuilding(7);
+                    break;
+            }
+        }
+        // // 인부 휴게소
+        // else if (clickNum == 1)
+        // {
+        //     switch (currentLevel)
+        //     {
+        //         case 1:
+        //             ActivateBuilding(2);
+        //             break;
+        //         case 200:
+        //             ActivateBuilding(5);
+        //             break;
+        //     }
+        // }
+        // // 쓰레기 저장소
+        // else if (clickNum == 2)
+        // {
+        //     switch (currentLevel)
+        //     {
+        //         case 1:
+        //             ActivateBuilding(1);
+        //             break;
+        //         case 200:
+        //             ActivateBuilding(4);
+        //             break;
+        //     }
+        // }
+    }
+
+    private void PlayParticleByLevel(int currentLevel)
+    {
+        Debug.Log("currentLevel: " + currentLevel);
+        if (currentLevel >= 2 && currentLevel < 200)
+        {            
             structer.Particle(0);
         }
-
-        if (uIController.b_level >= 200 && uIController.b_level < 500)
+        else if (currentLevel >= 201 && currentLevel < 500)
         {
             structer.Particle(1);
         }
-
-        if (uIController.b_level >= 500 && uIController.b_level < 700)
+        else if (currentLevel >= 501 && currentLevel < 700)
         {
             structer.Particle(2);
         }
     }
+
 
 
     public void UIInit()
