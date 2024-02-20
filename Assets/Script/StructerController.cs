@@ -7,8 +7,9 @@ using UnityEngine.EventSystems;
 public class StructerController : MonoBehaviour
 {
     PlayerData playerData;
-    private UIController uIController;
     NoticeUI _notice;
+    Structer structer;
+    UIController uIController;
     public List<GameObject> structerList;
 
     int[] needGold;
@@ -18,6 +19,7 @@ public class StructerController : MonoBehaviour
 
     void Start()
     {
+        structer = FindAnyObjectByType<Structer>();
         playerData = DataManager.instance.player;
         uIController = FindAnyObjectByType<UIController>();
         _notice = FindAnyObjectByType<NoticeUI>();
@@ -28,31 +30,9 @@ public class StructerController : MonoBehaviour
 
         //UIInit();
     }
-
-    public void build()
+    private void Update()
     {
-        if (uIController.b_level == 1)
-        {
-            ActivateBuilding(1);
-        }
-        else if(uIController.b_level == 200)
-        {
-            ActivateBuilding(2);            
-        }
-        else if (uIController.b_level == 500)
-        {
-            ActivateBuilding(3);
-        }
-        else if (uIController.b_level == 700)
-        {
-            ActivateBuilding(4);
-        }
-        // else
-        // {
-            
-        // }
     }
-
     public void OnBtnBuild()
     {
         int clickNum = EventSystem.current.currentSelectedGameObject.GetComponent<ButtonNum>().GetButtonNuum();
@@ -62,17 +42,17 @@ public class StructerController : MonoBehaviour
         int needGoldIndex = nowStructer.UintCurrentIndex(needGold);
         int needGarbageIndex = nowStructer.UintCurrentIndex(needGarbage);
 
-        //°ñµå¶û ¾²·¹±â ¼ÒÁö ¾çÀÌ ´õ ¸¹´Ù¸é
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½
         if (IsHaveUnit(needGoldIndex, needGarbageIndex))
         {
-            // µ· ¼Òºñ        
+            // ï¿½ï¿½ ï¿½Òºï¿½        
             playerData.SetUnitValue((int)Unit.GOLD, needGold);
-            //¾²·¹±â ¼Òºñ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Òºï¿½
             playerData.SetUnitValue((int)Unit.GARBAGE, needGarbage);
 
             nowStructer.SetLevel(nowStructer.GetLevel() + 1);
 
-            //·¹º§ Ç¥½Ã Áõ°¡
+            //ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             UIController uIController = FindAnyObjectByType<UIController>();
             uIController.lvTextBuild.text = "Lv." + nowStructer.GetLevel().ToString("D3");
 
@@ -85,14 +65,53 @@ public class StructerController : MonoBehaviour
             uIController.garbageTextBuild.text = nowStructer.NeedGarbageToString();
 
             build();
-            _notice.SUB("°Ç¼³!");
+            _notice.SUB("ê±´ì„¤!");
         }
         else
         {
-            _notice.SUB("ÀçÈ­°¡ ºÎÁ·ÇÕ´Ï´Ù!");
+            _notice.SUB("ìž¬í™”ê°€ ë¶€ì¡±í•©ë‹ˆë‹¤.");
         }
-        
+
     }
+
+    public void build()
+    { 
+        Debug.Log("level : "+ structer.level);
+        if (uIController.b_level == 1)
+        {
+            ActivateBuilding(1);
+        }
+
+        else if (uIController.b_level == 200)
+        {
+            ActivateBuilding(2);
+        }
+        else if (uIController.b_level == 500)
+        {
+            ActivateBuilding(3);
+        }
+
+        else if (uIController.b_level == 700)
+        {
+            ActivateBuilding(4);
+        }
+
+        if (uIController.b_level >= 1 && uIController.b_level < 200)
+        {
+            structer.Particle(0);
+        }
+
+        if (uIController.b_level >= 200 && uIController.b_level < 500)
+        {
+            structer.Particle(1);
+        }
+
+        if (uIController.b_level >= 500 && uIController.b_level < 700)
+        {
+            structer.Particle(2);
+        }
+    }
+
 
     public void UIInit()
     {
@@ -100,7 +119,7 @@ public class StructerController : MonoBehaviour
         {
             Structer nowStructer = structerList[i].GetComponent<Structer>();
 
-            //·¹º§ Ç¥½Ã Áõ°¡
+            //ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             UIController uIController = FindAnyObjectByType<UIController>();
             uIController.lvTextBuild.text = "Lv." + nowStructer.GetLevel().ToString("D3");
 

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 enum Unit
 {
-    GOLD=1,
+    GOLD = 1,
     GARBAGE,
     ENERGY,
     DIAMOND
@@ -22,7 +22,7 @@ public class UIController : MonoBehaviour
     StructerController structerController;
     NoticeUI _notice;
 
-    [Header ("메뉴 패널")]
+    [Header("메뉴 패널")]
     public GameObject panelConstruction;
     public GameObject panelAbility;
     public GameObject panelTool;
@@ -41,7 +41,7 @@ public class UIController : MonoBehaviour
     public GameObject bookWindow;
 
 
-    [Header ("건설 버튼")]
+    [Header("건설 버튼")]
     public Text lvTextBuild;
     public Text moneyTextBuild;
     public Text garbageTextBuild;
@@ -49,11 +49,11 @@ public class UIController : MonoBehaviour
     private int b_garbage = 50;
 
     private int b_money = 50;
-    
-    [Header ("골드 변환 패널")]
+
+    [Header("골드 변환 패널")]
     private GameObject changeWindowPanel;
     public Text windowTitleText; // Window Title Text UI 요소
-    public bool isGoldButtonClicked = false; 
+    public bool isGoldButtonClicked = false;
     public bool isPanelOn = false;
 
     [Header("slider 패널")]
@@ -67,12 +67,12 @@ public class UIController : MonoBehaviour
     public GameObject warningWindow;
     public GameObject windowTitle;
     public int unitIndex;
-    
+
     [Header("도감 패널")]
     public Button[] buttons; // 버튼 배열
     private List<SetItem> sets = new List<SetItem>(); // 세트 리스트
-    private bool isZero = false;
-    private bool isFirst = false;
+    private bool[] isActive = new bool[12];
+    public Sprite change_img;
 
     [Header("진척도 패널")]
     public Image progressGage;
@@ -81,7 +81,7 @@ public class UIController : MonoBehaviour
 
     private void Awake()
     {
-    // 모든 버튼을 비활성화합니다.
+        // 모든 버튼을 비활성화합니다.
         foreach (Button button in buttons)
         {
             button.interactable = false;
@@ -122,21 +122,6 @@ public class UIController : MonoBehaviour
         changeWindowPanel.SetActive(false);
         warningWindow.SetActive(false);
     }
-    // void OnEnable()
-    // {
-    // 	  // 씬 매니저의 sceneLoaded에 체인을 건다.
-    //     SceneManager.sceneLoaded += OnSceneLoaded;
-    // }
-    // void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    // {
-    //     Debug.Log("OnSceneLoaded: " + scene.name);
-    //     Debug.Log(mode);
-    // }
-
-    // void OnDisable()
-    // {
-    //     SceneManager.sceneLoaded -= OnSceneLoaded;
-    // }
 
     private void Update()
     {
@@ -150,18 +135,16 @@ public class UIController : MonoBehaviour
         diaText.text = playerData.MyUnitToString((int)Unit.DIAMOND).ToString();
 
 
-        // workerScript.special이 true이고 IndexZero 함수가 아직 실행되지 않았다면 실행합니다.
-        if (workerScript.special1 == true && !isZero)
+        //다이아 도감 확률 패널
+        for (int i = 0; i < workerScript.specialArry.Length; i++)
         {
-            IndexZero();
-            isZero = true; // IndexZero 함수를 실행했으므로 플래그를 true로 설정합니다.
+            if (workerScript.specialArry[i] && !isActive[i])
+            {
+                IndexBtnActive(i);
+                isActive[i] = true;
+            }
         }
-        // workerScript.special이 true이고 IndexZero 함수가 아직 실행되지 않았다면 실행합니다.
-        if (workerScript.special2 == true && !isFirst)
-        {
-            IndexFirst();
-            isFirst = true; // IndexZero 함수를 실행했으므로 플래그를 true로 설정합니다.
-        }
+
 
         playerData.ConvertUnit((int)Unit.GOLD);
         playerData.ConvertUnit((int)Unit.ENERGY);
@@ -370,7 +353,7 @@ public class UIController : MonoBehaviour
             playerData.SetUnitValue((int)Unit.GOLD, amount, unitIndex);
             _notice.SUB("변환되었습니다.");
         }
-        else if(playerData.UnitValue((int)Unit.ENERGY, unitIndex) < amount)
+        else if (playerData.UnitValue((int)Unit.ENERGY, unitIndex) < amount)
         {
             _notice.SUB("에너지가 부족합니다.");
         }
@@ -387,7 +370,7 @@ public class UIController : MonoBehaviour
         unitIndex = 0;
         slider.maxValue = playerData.UnitValue((int)Unit.ENERGY, unitIndex);
     }
-    
+
     #endregion 재화 변경 관련
 
 
@@ -407,55 +390,17 @@ public class UIController : MonoBehaviour
         }
     }
 
-    // 다른 버튼 동작 메서드들 (각 버튼을 별도의 메서드로 처리)
-    public void OnBtnGetDia0()
+    public void IndexBtnActive(int index)
     {
-        OnBtnGetDia(0);
-    }
-
-    public void OnBtnGetDia1()
-    {
-        OnBtnGetDia(1);
-    }
-
-    public void OnBtnGetDia2()
-    {
-        OnBtnGetDia(2);
-    }
-
-    public void OnBtnGetDia3()
-    {
-        OnBtnGetDia(3);
-    }
-    public void OnBtnGetDia4()
-    {
-        OnBtnGetDia(4);
-    }
-
-    public void IndexZero()
-    {
-        sets[0].button.interactable = true;
-    }
-    public void IndexFirst()
-    {
-        sets[1].button.interactable = true;
+        sets[index].button.interactable = true;
     }
 
     // SetItem 클래스 정의
     private class SetItem
     {
         public Button button;
-        public bool buttonClicked=false;
+        public bool buttonClicked = false;
         public int index;
-    }
-
-    //물어보기
-    
-  //  테스트 버튼
-    public void test()
-    {
-        lvTextBuild.text = "Lv." + b_level.ToString("D3");
-        b_level+=99;
     }
 }
 
