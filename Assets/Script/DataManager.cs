@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using JetBrains.Annotations;
 
-enum StageNum { MAIN = 0, FOREST, CITY,}
+enum StageNum { MAIN = 0, FOREST, CITY, COUNTRY, SEA, VILLAGE}
 
 
 public class PlayerData
@@ -252,6 +252,22 @@ public class PlayerData
             index = (int)StageNum.MAIN;
         }
         if(s=="Forest")
+        {
+            index = (int)StageNum.FOREST;
+        }
+        if (s == "CITY")
+        {
+            index = (int)StageNum.FOREST;
+        }
+        if (s == "COUNTRY")
+        {
+            index = (int)StageNum.FOREST;
+        }
+        if (s == "SEA")
+        {
+            index = (int)StageNum.FOREST;
+        }
+        if (s == "VILLAGE")
         {
             index = (int)StageNum.FOREST;
         }

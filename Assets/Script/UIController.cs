@@ -127,7 +127,11 @@ public class UIController : MonoBehaviour
     {
         // Menu 오브젝트를 목표 위치로 천천히 내리기
         menu.transform.localPosition = Vector3.MoveTowards(menu.transform.localPosition, targetPosition, animationSpeed * Time.deltaTime);
-        progressGage.fillAmount = (float)DataManager.instance.player.ConfirmGage("Main");
+        progressGage.fillAmount = (float)DataManager.instance.player.ConfirmGage("MAIN");
+        progressGage.fillAmount = (float)DataManager.instance.player.ConfirmGage("FOREST");
+        progressGage.fillAmount = (float)DataManager.instance.player.ConfirmGage("CITY");
+        progressGage.fillAmount = (float)DataManager.instance.player.ConfirmGage("COUNTRY");
+        progressGage.fillAmount = (float)DataManager.instance.player.ConfirmGage("SEA");
 
         garbage.text = playerData.MyUnitToString((int)Unit.GARBAGE).ToString();
         energyText.text = playerData.MyUnitToString((int)Unit.ENERGY).ToString();
@@ -176,23 +180,53 @@ public class UIController : MonoBehaviour
 
     public void OnBtnCity()
     {
-        SceneManager.LoadScene("CtiyStage");
-        mapWindow.SetActive(false);
+        if (DataManager.instance.player.ConfirmGage("Forest") >= 0.5f)
+        {
+            SceneManager.LoadScene("CtiyStage");
+            mapWindow.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("Forest gauge is not equal to or greater than 0.5");
+        }
+        
     }
     public void OnBtnCountry()
     {
-        SceneManager.LoadScene("CountrySideStage");
-        mapWindow.SetActive(false);
+        if (DataManager.instance.player.ConfirmGage("CITY") >= 0.5f)
+        {
+            SceneManager.LoadScene("CountrySideStage");
+            mapWindow.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("CITY gauge is not equal to or greater than 0.5");
+        }
     }
     public void OnBtnSea()
     {
-        SceneManager.LoadScene("SeaStage");
-        mapWindow.SetActive(false);
+        if (DataManager.instance.player.ConfirmGage("COUNTRY") >= 0.5f)
+        {
+            SceneManager.LoadScene("SeaStage");
+            mapWindow.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("COUNTRY gauge is not equal to or greater than 0.5");
+        }
     }
     public void OnBtnVillage()
     {
-        SceneManager.LoadScene("VillageStage");
-        mapWindow.SetActive(false);
+        if (DataManager.instance.player.ConfirmGage("SEA") >= 0.5f)
+        {
+            SceneManager.LoadScene("VillageStage");
+            mapWindow.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("SEA gauge is not equal to or greater than 0.5");
+        }
+
     }
 
     //메뉴버튼
