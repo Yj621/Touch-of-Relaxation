@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1829996, g: 0.22868465, b: 0.30678758, a: 1}
+  m_IndirectSpecularColor: {r: 0.18299967, g: 0.22868471, b: 0.30678773, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2602,7 +2602,7 @@ GameObject:
   - component: {fileID: 74989352}
   - component: {fileID: 74989351}
   m_Layer: 5
-  m_Name: Menu (2)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5389,10 +5389,10 @@ RectTransform:
   - {fileID: 559428796}
   m_Father: {fileID: 476768408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 910.0001, y: -770}
-  m_SizeDelta: {x: 1120, y: 500}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &158895106 stripped
 GameObject:
@@ -8488,7 +8488,7 @@ GameObject:
   - component: {fileID: 262763556}
   - component: {fileID: 262763555}
   m_Layer: 5
-  m_Name: Menu (7)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10209,10 +10209,10 @@ RectTransform:
   - {fileID: 1585819167}
   m_Father: {fileID: 476768408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 910.0001, y: -1290}
-  m_SizeDelta: {x: 1120, y: 500}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &326086719
 GameObject:
@@ -14899,7 +14899,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 518, y: -0.000061035156}
-  m_SizeDelta: {x: 0.0002, y: -71.47217}
+  m_SizeDelta: {x: 0.0002, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &476768409
 MonoBehaviour:
@@ -17930,10 +17930,10 @@ RectTransform:
   - {fileID: 724835031}
   m_Father: {fileID: 476768408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 910.0001, y: -250}
-  m_SizeDelta: {x: 1120, y: 500}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &563493825
 GameObject:
@@ -19359,7 +19359,7 @@ GameObject:
   - component: {fileID: 615329703}
   - component: {fileID: 615329702}
   m_Layer: 5
-  m_Name: Menu (5)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21142,7 +21142,7 @@ GameObject:
   - component: {fileID: 652792877}
   - component: {fileID: 652792876}
   m_Layer: 5
-  m_Name: Menu (4)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35526,7 +35526,7 @@ GameObject:
   - component: {fileID: 1025932695}
   - component: {fileID: 1025932694}
   m_Layer: 5
-  m_Name: Menu_Build
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35837,7 +35837,7 @@ GameObject:
   - component: {fileID: 1036685332}
   - component: {fileID: 1036685331}
   m_Layer: 5
-  m_Name: Menu (5)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41336,7 +41336,7 @@ GameObject:
   - component: {fileID: 1183112162}
   - component: {fileID: 1183112161}
   m_Layer: 5
-  m_Name: Menu (5)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45843,7 +45843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1285954950
 RectTransform:
   m_ObjectHideFlags: 0
@@ -47514,7 +47514,7 @@ GameObject:
   - component: {fileID: 1338388397}
   - component: {fileID: 1338388396}
   m_Layer: 5
-  m_Name: Menu (3)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48056,7 +48056,7 @@ GameObject:
   - component: {fileID: 1351725940}
   - component: {fileID: 1351725939}
   m_Layer: 5
-  m_Name: Menu (3)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57022,7 +57022,7 @@ GameObject:
   - component: {fileID: 1545278947}
   - component: {fileID: 1545278946}
   m_Layer: 5
-  m_Name: Menu (3)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60239,7 +60239,7 @@ GameObject:
   - component: {fileID: 1637639161}
   - component: {fileID: 1637639160}
   m_Layer: 5
-  m_Name: Menu (1)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63389,7 +63389,7 @@ GameObject:
   - component: {fileID: 1722115940}
   - component: {fileID: 1722115939}
   m_Layer: 5
-  m_Name: Menu (6)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67217,7 +67217,7 @@ GameObject:
   - component: {fileID: 1828133420}
   - component: {fileID: 1828133419}
   m_Layer: 5
-  m_Name: Menu (4)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76146,7 +76146,7 @@ GameObject:
   - component: {fileID: 2069072680}
   - component: {fileID: 2069072679}
   m_Layer: 5
-  m_Name: Menu (4)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
