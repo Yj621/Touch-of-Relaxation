@@ -6,29 +6,35 @@ using UnityEngine.EventSystems;
 
 public class StructerController : MonoBehaviour
 {
-    PlayerData playerData;
-    NoticeUI _notice;
-    Structer structer;
-    UIController uIController;
-    public List<GameObject> structerList;
+    const int BUILDINGCOUNT = 3;
 
-    int[] needGold;
-    int[] needGarbage;
+    PlayerData                  playerData;
+    NoticeUI                    _notice;
+    UIController                uIController;
+    public List<GameObject>     structerGameObjectList;     // 건물 건설용도로 선언한 게임 오브젝트 리스트
+    private List<Structer>      structerScriptList;         // 건물 3개의 정보만 관리하기 윈한 스크립트 변수
+    int[]                       needGold;
+    int[]                       needGarbage;
 
-    private int currentBuildingIndex = 0;
+    private int                 currentBuildingIndex = 0;
+
 
     void Start()
     {
-        structer = FindAnyObjectByType<Structer>();
         playerData = DataManager.instance.player;
         uIController = FindAnyObjectByType<UIController>();
         _notice = FindAnyObjectByType<NoticeUI>();
-        foreach (GameObject building in structerList)
+        structerScriptList = new List<Structer>();
+
+        foreach (GameObject building in structerGameObjectList)
         {
             building.SetActive(false);
         }
 
-        //UIInit();
+        for (int i = 0; i < (structerGameObjectList.Count / BUILDINGCOUNT); i++)
+        {
+            structerScriptList.Add(structerGameObjectList[i].GetComponent<Structer>());
+        }
     }
     private void Update()
     {
@@ -36,35 +42,26 @@ public class StructerController : MonoBehaviour
     public void OnBtnBuild()
     {
         int clickNum = EventSystem.current.currentSelectedGameObject.GetComponent<ButtonNum>().GetButtonNuum();
-        Structer nowStructer = structerList[clickNum].GetComponent<Structer>();
+        Structer nowStructer = structerScriptList[clickNum % BUILDINGCOUNT].GetComponent<Structer>();
         needGold = nowStructer.GetNeedGold();
         needGarbage = nowStructer.GetNeedGarbage();
         int needGoldIndex = nowStructer.UintCurrentIndex(needGold);
         int needGarbageIndex = nowStructer.UintCurrentIndex(needGarbage);
 
-        //���� ������ ���� ���� �� ���ٸ�
         if (IsHaveUnit(needGoldIndex, needGarbageIndex))
-        {
-            // �� �Һ�        
+        {   
+            // 소지 재화 감소
             playerData.SetUnitValue((int)Unit.GOLD, needGold);
-            //������ �Һ�
             playerData.SetUnitValue((int)Unit.GARBAGE, needGarbage);
 
-            nowStructer.SetLevel(nowStructer.GetLevel() + 1);
+            //건물 레벨 업
+            nowStructer.LevelUP();
 
-            //���� ǥ�� ����
-            UIController uIController = FindAnyObjectByType<UIController>();
-            uIController.lvTextBuild.text = "Lv." + nowStructer.GetLevel().ToString("D3");
+            // 건물 활성화
+            ActivateBuilding(nowStructer.GetLevel(), clickNum);
 
-            needGold[0] += 50;
-            needGarbage[0] += 50;
-            nowStructer.SetNeedGold(needGold);
-            nowStructer.SetNeedGarbage(needGarbage);
-
-            uIController.moneyTextBuild.text = nowStructer.NeedGoldToString();
-            uIController.garbageTextBuild.text = nowStructer.NeedGarbageToString();
-
-            Build();
+            // 파티클 재생
+            PlayParticleByLevel(clickNum, nowStructer.GetLevel());
             _notice.SUB("건설!");
         }
         else
@@ -76,101 +73,45 @@ public class StructerController : MonoBehaviour
 
     public void Build()
     {
+        // 건물 넘버를 받아옴
         int clickNum = EventSystem.current.currentSelectedGameObject.GetComponent<ButtonNum>().GetButtonNuum();
-        Structer nowStructer = structerList[clickNum].GetComponent<Structer>();
+        Structer nowStructer = structerScriptList[clickNum % BUILDINGCOUNT].GetComponent<Structer>();
         int currentLevel = nowStructer.GetLevel();
-        Debug.Log("현재 레벨: " + currentLevel);
 
-        // 건물 활성화
-        ActivateBuilding(currentLevel, clickNum);
-
-        // 파티클 재생
-        PlayParticleByLevel(currentLevel);
     }
 
     private void ActivateBuilding(int currentLevel, int clickNum)
     {
-        // 에너지 장치
-        if (clickNum == 0)
-        {
             switch (currentLevel)
             {
                 case 1:
-                    ActivateBuilding(0);
+                    ActivateBuilding(0 + clickNum);
                     break;
                 case 200:
-                    ActivateBuilding(3);
+                    ActivateBuilding(3+ clickNum);
                     break;
                 case 500:
-                    ActivateBuilding(6);
-                    break;
-                case 700:
-                    ActivateBuilding(7);
+                    ActivateBuilding(6 + clickNum);
                     break;
             }
-        }
-        // // 인부 휴게소
-        // else if (clickNum == 1)
-        // {
-        //     switch (currentLevel)
-        //     {
-        //         case 1:
-        //             ActivateBuilding(2);
-        //             break;
-        //         case 200:
-        //             ActivateBuilding(5);
-        //             break;
-        //     }
-        // }
-        // // 쓰레기 저장소
-        // else if (clickNum == 2)
-        // {
-        //     switch (currentLevel)
-        //     {
-        //         case 1:
-        //             ActivateBuilding(1);
-        //             break;
-        //         case 200:
-        //             ActivateBuilding(4);
-        //             break;
-        //     }
-        // }
+        
     }
 
-    private void PlayParticleByLevel(int currentLevel)
+    private void PlayParticleByLevel(int _index, int _currentLevel)
     {
-        Debug.Log("currentLevel: " + currentLevel);
-        if (currentLevel >= 2 && currentLevel < 200)
-        {            
-            structer.Particle(0);
-        }
-        else if (currentLevel >= 201 && currentLevel < 500)
+        Structer  currentStructerScript = structerGameObjectList[_index].GetComponent<Structer>();
+
+        if (_currentLevel >= 2 && _currentLevel < 200)
         {
-            structer.Particle(1);
+            currentStructerScript.Particle(0);
         }
-        else if (currentLevel >= 501 && currentLevel < 700)
+        else if (_currentLevel >= 201 && _currentLevel < 500)
         {
-            structer.Particle(2);
+            currentStructerScript.Particle(1);
         }
-    }
-
-
-
-    public void UIInit()
-    {
-        for (int i = 0; i < structerList.Count; ++i)
+        else if (_currentLevel >= 501 && _currentLevel < 700)
         {
-            Structer nowStructer = structerList[i].GetComponent<Structer>();
-
-            //���� ǥ�� ����
-            UIController uIController = FindAnyObjectByType<UIController>();
-            uIController.lvTextBuild.text = "Lv." + nowStructer.GetLevel().ToString("D3");
-
-            nowStructer.SetNeedGold(needGold);
-            nowStructer.SetNeedGarbage(needGarbage);
-
-            uIController.moneyTextBuild.text = nowStructer.NeedGoldToString();
-            uIController.garbageTextBuild.text = nowStructer.NeedGarbageToString();
+            currentStructerScript.Particle(2);
         }
     }
 
@@ -192,9 +133,9 @@ public class StructerController : MonoBehaviour
 
     private void ActivateBuilding(int index)
     {
-        if (currentBuildingIndex <= index && index < structerList.Count)
+        if (currentBuildingIndex <= index && index < structerGameObjectList.Count)
         {
-            structerList[index].SetActive(true);
+            structerGameObjectList[index].SetActive(true);
             currentBuildingIndex = index + 1;
         }
     }

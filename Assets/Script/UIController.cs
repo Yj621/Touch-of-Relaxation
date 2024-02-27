@@ -40,16 +40,6 @@ public class UIController : MonoBehaviour
     public GameObject mapWindow;
     public GameObject bookWindow;
 
-
-    [Header("건설 버튼")]
-    public Text lvTextBuild;
-    public Text moneyTextBuild;
-    public Text garbageTextBuild;
-    public int b_level = 0;
-    private int b_garbage = 50;
-
-    private int b_money = 50;
-
     [Header("골드 변환 패널")]
     private GameObject changeWindowPanel;
     public Text windowTitleText; // Window Title Text UI 요소

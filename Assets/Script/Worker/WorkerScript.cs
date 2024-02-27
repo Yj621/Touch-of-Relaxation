@@ -62,7 +62,6 @@ public class WorkerScript : MonoBehaviour
         // 확률에 따라 특정 인덱스에 대한 특수 값을 설정합니다.
         for (int i = 0; i < specialArry.Length; i++)
         {
-            Debug.Log("randomValue : "+randomValue);
             if (randomValue < (i + 1) * 0.01f)
             {
                 specialArry[i] = true;

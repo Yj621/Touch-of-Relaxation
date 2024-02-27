@@ -1,15 +1,24 @@
 using System;
+using UnityEngine;
+using UnityEditor.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.UI;
 
 public class Structer : MonoBehaviour
 {
-    private string name;
-    public int level;
-    private int[] needGold;
-    private int[] needGarbage;
-    public GameObject[] particles;
+    private string          name;
+    private int             level;
+    public int              initGold;
+    public int              initGarbage;
+    private int[]           needGold;
+    private int[]           needGarbage;
+    public GameObject[]     particles;
+
+    public Text             lvTextBuild;
+    public Text             goldTextBuild;
+    public Text             garbageTextBuild;
+    public Button           buildButton;
 
     private void Awake()
     {
@@ -22,16 +31,21 @@ public class Structer : MonoBehaviour
             needGold[i] = 0;
             needGarbage[i] = 0;
         }
-        needGold[0] = 50;
-        needGarbage[0] = 50;
+
+        level = 0;
+        needGold[0] = initGold;
+        needGarbage[0] = initGarbage;
+
+        if (lvTextBuild != null)
+        {
+            lvTextBuild.text = "Lv." + level.ToString("D3");
+            goldTextBuild.text = NeedGoldToString();
+            garbageTextBuild.text = NeedGarbageToString();
+        }
     }
 
     void Start()
     {
-         foreach (GameObject particle in particles)
-        {
-            particle.SetActive(false);
-        }
     }
     public void Particle(int index)
     {    
@@ -50,27 +64,49 @@ public class Structer : MonoBehaviour
 
     private void Update()
     {
-        ConvertUnit();
     }
-    //��ȭ ���� ���� �ڵ�
+
+    public void LevelUP()
+    {
+        // 레벨 및 소요 재화 재설정
+        ++level;
+
+        needGold[0] += 50;
+        needGarbage[0] += 50;
+
+        ConvertUnit();
+        lvTextBuild.text = "Lv." + level.ToString("D3");
+        goldTextBuild.text = NeedGoldToString();
+        garbageTextBuild.text = NeedGarbageToString();
+
+
+        if (0 < level && level < 1000) 
+        {
+            buildButton.GetComponentInChildren<Text>().text = "레벨 업";
+        }
+        else if(level > 1000)
+        {
+            buildButton.GetComponentInChildren<Text>().text = "완성";
+        }
+        else
+        {
+            buildButton.GetComponentInChildren<Text>().text = "건설";
+        }
+    }
+
+    //재화를 텍스트로 변환
     public void ConvertUnit()
     {
-        //��� �κ�
         int index = UintCurrentIndex(needGold);
         for (int i = 0; i <= index; i++)
         {
-            // ����, i��° �迭�� ���� 10000�̻��̶��
-            // �ű⼭ 10000�� ���� �� �迭�� 1�� �����ش�.
             if (needGold[i] >= 10000)
             {
                 needGold[i] -= 10000;
                 needGold[i + 1] += 1;
             }
-            // ����, i��° �迭�� ���� �������
             if (needGold[i] < 0)
             {
-                // ����, i�� ���� ���� ���� �ڻ��� ������ ������
-                // �� �迭���� 1�� ���� ������ i��° �迭�� 10000�� ���Ѵ�.
                 if (26 > i)
                 {
                     needGold[i + 1] -= 1;
@@ -79,7 +115,7 @@ public class Structer : MonoBehaviour
             }
 
         }
-
+        print(needGold[0]);
         //������ �κ�
         index = UintCurrentIndex(needGold);
         for (int i = 0; i <= index; ++i) {
