@@ -13,7 +13,6 @@ enum Unit
     DIAMOND
 };
 
-
 public class UIController : MonoBehaviour
 {
     // CameraSwitcher cameraSwitcher;
@@ -37,7 +36,6 @@ public class UIController : MonoBehaviour
     private Quaternion startRotation;
     public bool isMenuDown = false;
     public Text energyText;
-    public GameObject mapWindow;
     public GameObject bookWindow;
 
     [Header("골드 변환 패널")]
@@ -108,7 +106,6 @@ public class UIController : MonoBehaviour
 
         slider.value = 0;
 
-        mapWindow.SetActive(false);
         changeWindowPanel.SetActive(false);
         warningWindow.SetActive(false);
     }
@@ -160,65 +157,6 @@ public class UIController : MonoBehaviour
     }
 
     #region 버튼 관련 함수들
-
-    //맵 버튼
-    public void OnBtnForest()
-    {
-        SceneManager.LoadScene("ForestStage");
-        mapWindow.SetActive(false);
-    }
-
-    public void OnBtnCity()
-    {
-        if (DataManager.instance.player.ConfirmGage("Forest") >= 0.5f)
-        {
-            SceneManager.LoadScene("CtiyStage");
-            mapWindow.SetActive(false);
-        }
-        else
-        {
-            Debug.Log("Forest gauge is not equal to or greater than 0.5");
-        }
-        
-    }
-    public void OnBtnCountry()
-    {
-        if (DataManager.instance.player.ConfirmGage("CITY") >= 0.5f)
-        {
-            SceneManager.LoadScene("CountrySideStage");
-            mapWindow.SetActive(false);
-        }
-        else
-        {
-            Debug.Log("CITY gauge is not equal to or greater than 0.5");
-        }
-    }
-    public void OnBtnSea()
-    {
-        if (DataManager.instance.player.ConfirmGage("COUNTRY") >= 0.5f)
-        {
-            SceneManager.LoadScene("SeaStage");
-            mapWindow.SetActive(false);
-        }
-        else
-        {
-            Debug.Log("COUNTRY gauge is not equal to or greater than 0.5");
-        }
-    }
-    public void OnBtnVillage()
-    {
-        if (DataManager.instance.player.ConfirmGage("SEA") >= 0.5f)
-        {
-            SceneManager.LoadScene("VillageStage");
-            mapWindow.SetActive(false);
-        }
-        else
-        {
-            Debug.Log("SEA gauge is not equal to or greater than 0.5");
-        }
-
-    }
-
     //메뉴버튼
     public void OnBtnConstruction()
     {
@@ -245,15 +183,6 @@ public class UIController : MonoBehaviour
         isMenuDown = !isMenuDown;
         targetPosition = isMenuDown ? targetPosition + Vector3.up * moveDistance : targetPosition - Vector3.up * moveDistance;
         menuImg.transform.rotation = isMenuDown ? Quaternion.Euler(0, 0, 90) : startRotation;
-    }
-
-    public void OnBtnMap()
-    {
-        mapWindow.SetActive(true);
-    }
-    public void OnBtnMapClose()
-    {
-        mapWindow.SetActive(false);
     }
 
     public void OnBtnHome()

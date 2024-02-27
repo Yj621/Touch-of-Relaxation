@@ -41,15 +41,24 @@ public class StructerController : MonoBehaviour
     }
     public void OnBtnBuild()
     {
+        // 버튼 스크립트에서 넘버를 불러옴
         int clickNum = EventSystem.current.currentSelectedGameObject.GetComponent<ButtonNum>().GetButtonNuum();
-        Structer nowStructer = structerScriptList[clickNum % BUILDINGCOUNT].GetComponent<Structer>();
-        needGold = nowStructer.GetNeedGold();
-        needGarbage = nowStructer.GetNeedGarbage();
-        int needGoldIndex = nowStructer.UintCurrentIndex(needGold);
-        int needGarbageIndex = nowStructer.UintCurrentIndex(needGarbage);
+        Structer nowStructer = structerScriptList[clickNum % BUILDINGCOUNT].GetComponent<Structer>();   //불러온 넘버에 맞는 structer 스크립트 호출
+        needGold = nowStructer.GetNeedGold();   //해당 건물의 소요 골드를 저장할 임시 변수
+        needGarbage = nowStructer.GetNeedGarbage();  //해당 건물의 소요 쓰레기를 저장할 임시 변수
+        int needGoldIndex = nowStructer.UintCurrentIndex(needGold);     //소요 골드의 자릿수를 정해주는 index변수
+        int needGarbageIndex = nowStructer.UintCurrentIndex(needGarbage); // 소요 쓰레기를 자릿수를 정해주는 index변수
 
         if (IsHaveUnit(needGoldIndex, needGarbageIndex))
-        {   
+        {
+            if (structerGameObjectList[clickNum].activeInHierarchy == true)
+            {
+                _notice.SUB("레벨 업!");
+            }
+            else
+            {
+                _notice.SUB("건설!");
+            }
             // 소지 재화 감소
             playerData.SetUnitValue((int)Unit.GOLD, needGold);
             playerData.SetUnitValue((int)Unit.GARBAGE, needGarbage);
@@ -59,24 +68,11 @@ public class StructerController : MonoBehaviour
 
             // 건물 활성화
             ActivateBuilding(nowStructer.GetLevel(), clickNum);
-
-            // 파티클 재생
-            PlayParticleByLevel(clickNum, nowStructer.GetLevel());
-            _notice.SUB("건설!");
         }
         else
         {
             _notice.SUB("재화가 부족합니다.");
         }
-
-    }
-
-    public void Build()
-    {
-        // 건물 넘버를 받아옴
-        int clickNum = EventSystem.current.currentSelectedGameObject.GetComponent<ButtonNum>().GetButtonNuum();
-        Structer nowStructer = structerScriptList[clickNum % BUILDINGCOUNT].GetComponent<Structer>();
-        int currentLevel = nowStructer.GetLevel();
 
     }
 
@@ -95,24 +91,6 @@ public class StructerController : MonoBehaviour
                     break;
             }
         
-    }
-
-    private void PlayParticleByLevel(int _index, int _currentLevel)
-    {
-        Structer  currentStructerScript = structerGameObjectList[_index].GetComponent<Structer>();
-
-        if (_currentLevel >= 2 && _currentLevel < 200)
-        {
-            currentStructerScript.Particle(0);
-        }
-        else if (_currentLevel >= 201 && _currentLevel < 500)
-        {
-            currentStructerScript.Particle(1);
-        }
-        else if (_currentLevel >= 501 && _currentLevel < 700)
-        {
-            currentStructerScript.Particle(2);
-        }
     }
 
     public bool IsHaveUnit(int _currentGoldIndex, int _currentGarbageIndex)

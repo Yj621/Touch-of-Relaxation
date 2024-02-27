@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+enum PARTICLEGRADIENT { GREEN,BLUE,PURPLE,GOLD,RED }
+
 public class Structer : MonoBehaviour
 {
     private string          name;
@@ -15,7 +17,10 @@ public class Structer : MonoBehaviour
     private int[]           needGarbage;
     public GameObject[]     particles;
 
-    public Text             lvTextBuild;
+    private Gradient         colorGradient;
+    private Gradient[]      chageGradientArray;
+
+public Text             lvTextBuild;
     public Text             goldTextBuild;
     public Text             garbageTextBuild;
     public Button           buildButton;
@@ -46,24 +51,7 @@ public class Structer : MonoBehaviour
 
     void Start()
     {
-    }
-    public void Particle(int index)
-    {    
-        if (index >= 0 && index < particles.Length)
-        {
-            Debug.Log("index: " +index);
-            particles[index].SetActive(true);
-            //particles[0].SetActive(true);     
-        }
-        else
-        {
-            Debug.LogError("Invalid index for particles array: " + index);
-        }
-    }
-
-
-    private void Update()
-    {
+        InitParticleColor();
     }
 
     public void LevelUP()
@@ -78,13 +66,13 @@ public class Structer : MonoBehaviour
         lvTextBuild.text = "Lv." + level.ToString("D3");
         goldTextBuild.text = NeedGoldToString();
         garbageTextBuild.text = NeedGarbageToString();
+        ChangeParticle();
 
-
-        if (0 < level && level < 1000) 
+        if (0 < level && level < 1000)
         {
             buildButton.GetComponentInChildren<Text>().text = "레벨 업";
         }
-        else if(level > 1000)
+        else if (level > 1000)
         {
             buildButton.GetComponentInChildren<Text>().text = "완성";
         }
@@ -92,6 +80,29 @@ public class Structer : MonoBehaviour
         {
             buildButton.GetComponentInChildren<Text>().text = "건설";
         }
+    }
+
+    // 파티클 색을 바꾸는 함수
+    public void ChangeParticle()
+    {
+        ParticleSystem particleSystem = GetComponent<ParticleSystem>();
+        var colorOverLifetime = particleSystem.colorOverLifetime;
+
+        if (level >= 1 && level < 300)
+        {
+            colorGradient = chageGradientArray[(int)PARTICLEGRADIENT.GREEN];
+        }
+        else if (level >= 300 && level < 500)
+        {
+            colorGradient = chageGradientArray[(int)PARTICLEGRADIENT.BLUE];
+        }
+        else if (level >= 501 && level < 700)
+        {
+            colorGradient = chageGradientArray[(int)PARTICLEGRADIENT.PURPLE];
+        }
+
+        colorOverLifetime.enabled = true;
+        colorOverLifetime.color = new ParticleSystem.MinMaxGradient(colorGradient);
     }
 
     //재화를 텍스트로 변환
@@ -115,7 +126,6 @@ public class Structer : MonoBehaviour
             }
 
         }
-        print(needGold[0]);
         //������ �κ�
         index = UintCurrentIndex(needGold);
         for (int i = 0; i <= index; ++i) {
@@ -240,4 +250,27 @@ public class Structer : MonoBehaviour
         needGarbage = _needGarbage;
     }
 
+    private void InitParticleColor()
+    {
+        chageGradientArray = new Gradient[5];
+        //초록
+        chageGradientArray[(int)PARTICLEGRADIENT.GREEN] = new Gradient();
+        chageGradientArray[(int)PARTICLEGRADIENT.GREEN].SetKeys(new GradientColorKey[] { new GradientColorKey(Color.green, 0.0f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f) });
+
+        //파랑
+        chageGradientArray[(int)PARTICLEGRADIENT.BLUE] = new Gradient();
+        chageGradientArray[(int)PARTICLEGRADIENT.BLUE].SetKeys(new GradientColorKey[] { new GradientColorKey(Color.blue, 0.0f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f) });
+
+        //보라
+        chageGradientArray[(int)PARTICLEGRADIENT.PURPLE] = new Gradient();
+        chageGradientArray[(int)PARTICLEGRADIENT.PURPLE].SetKeys(new GradientColorKey[] { new GradientColorKey(new Color(0.5f, 0.0f, 0.5f), 0.5f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) });
+
+        //황금
+        chageGradientArray[(int)PARTICLEGRADIENT.GOLD] = new Gradient();
+        chageGradientArray[(int)PARTICLEGRADIENT.GOLD].SetKeys(new GradientColorKey[] { new GradientColorKey(new Color(1.0f, 0.84f, 0.0f), 0.75f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) });
+
+        //빨강
+        chageGradientArray[(int)PARTICLEGRADIENT.GOLD] = new Gradient();
+        chageGradientArray[(int)PARTICLEGRADIENT.GOLD].SetKeys(new GradientColorKey[] { new GradientColorKey(Color.red, 1.0f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) });
+    }
 }

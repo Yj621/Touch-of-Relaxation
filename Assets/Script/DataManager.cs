@@ -124,7 +124,6 @@ public class PlayerData
     }
 
     //재화 양 변경
-
     public void SetUnitValue(int _unitNum, int[] _minusUnit)
     {
         int[] unit = new int[26];
