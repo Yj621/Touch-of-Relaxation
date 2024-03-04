@@ -15,12 +15,10 @@ public class Structer : MonoBehaviour
     public int              initGarbage;
     private int[]           needGold;
     private int[]           needGarbage;
-    public GameObject[]     particles;
-
     private Gradient         colorGradient;
     private Gradient[]      chageGradientArray;
 
-public Text             lvTextBuild;
+    public Text             lvTextBuild;
     public Text             goldTextBuild;
     public Text             garbageTextBuild;
     public Button           buildButton;
@@ -68,17 +66,13 @@ public Text             lvTextBuild;
         garbageTextBuild.text = NeedGarbageToString();
         ChangeParticle();
 
-        if (0 < level && level < 1000)
+        if (level == 0 || level == 200 ||level == 500 ||level == 800)
         {
-            buildButton.GetComponentInChildren<Text>().text = "레벨 업";
-        }
-        else if (level > 1000)
-        {
-            buildButton.GetComponentInChildren<Text>().text = "완성";
+            buildButton.GetComponentInChildren<Text>().text = "건설";
         }
         else
         {
-            buildButton.GetComponentInChildren<Text>().text = "건설";
+            buildButton.GetComponentInChildren<Text>().text = "레벨업";
         }
     }
 
