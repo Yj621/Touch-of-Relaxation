@@ -11405,10 +11405,10 @@ RectTransform:
   m_LocalScale: {x: 0.41665924, y: 0.41665924, z: 0.41665924}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1454041522}
-  - {fileID: 1695231711}
-  - {fileID: 1542244614}
   - {fileID: 1542866574}
+  - {fileID: 1542244614}
+  - {fileID: 1695231711}
+  - {fileID: 1454041522}
   - {fileID: 326086720}
   - {fileID: 1333031771}
   m_Father: {fileID: 1457423256}
@@ -36612,24 +36612,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dc25d60a4f6414b8fd7a438ea52e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelConstruction: {fileID: 1454041521}
-  panelAbility: {fileID: 1695231710}
-  panelTool: {fileID: 1542244613}
-  panelStore: {fileID: 1542866573}
   isMenuDown: 0
   energyText: {fileID: 281813379}
   bookWindow: {fileID: 1285954949}
-  windowTitleText: {fileID: 108226028}
   isGoldButtonClicked: 0
   isPanelOn: 0
   slider: {fileID: 932184204}
-  buttonDecrease: {fileID: 1514918276}
-  buttonIncrease: {fileID: 760200733}
-  textAmountOfGoods: {fileID: 1738261}
   goldText: {fileID: 1908603250}
   diaText: {fileID: 1526329285}
   garbage: {fileID: 236795736}
-  warningWindow: {fileID: 661343690}
   windowTitle: {fileID: 108226023}
   unitIndex: 0
   buttons:
@@ -74973,7 +74964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -88691,7 +88682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1542244614
 RectTransform:
   m_ObjectHideFlags: 0
@@ -88769,7 +88760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1542866574
 RectTransform:
   m_ObjectHideFlags: 0
@@ -88806,7 +88797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -93303,7 +93294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1695231711
 RectTransform:
   m_ObjectHideFlags: 0

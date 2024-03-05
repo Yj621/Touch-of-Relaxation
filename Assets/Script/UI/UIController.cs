@@ -22,10 +22,10 @@ public class UIController : MonoBehaviour
     NoticeUI _notice;
 
     [Header("메뉴 패널")]
-    public GameObject panelConstruction;
-    public GameObject panelAbility;
-    public GameObject panelTool;
-    public GameObject panelStore;
+    private GameObject panelConstruction;
+    private GameObject panelAbility;
+    private GameObject panelTool;
+    private GameObject panelStore;
     private GameObject menu;
     private GameObject menuImg;
     private GameObject btnMap;
@@ -40,19 +40,18 @@ public class UIController : MonoBehaviour
 
     [Header("골드 변환 패널")]
     private GameObject changeWindowPanel;
-    public Text windowTitleText; // Window Title Text UI 요소
     public bool isGoldButtonClicked = false;
     public bool isPanelOn = false;
 
     [Header("slider 패널")]
     public Slider slider;
-    public Button buttonDecrease;
-    public Button buttonIncrease;
-    public Text textAmountOfGoods;
+    private Button buttonDecrease;
+    private Button buttonIncrease;
+    private Text textAmountOfGoods;
     public Text goldText; // coin_text UI를 연결해줄 변수
     public Text diaText;
     public Text garbage;
-    public GameObject warningWindow;
+    private GameObject warningWindow;
     public GameObject windowTitle;
     public int unitIndex;
 
@@ -88,14 +87,29 @@ public class UIController : MonoBehaviour
     private void Start()
     {
         playerData = DataManager.instance.player;
+        
+        //메뉴 패널
+        panelConstruction = GameObject.Find("Panel_Construction");
+        panelAbility = GameObject.Find("Panel_Ability");
+        panelTool = GameObject.Find("Panel_Tool");
+        panelStore = GameObject.Find("Panel_Store");
+
         menu = GameObject.Find("Menu");
         targetPosition = menu.transform.localPosition;
         menuImg = GameObject.Find("Img_Menu");
         startRotation = menuImg.transform.rotation;
 
+        //슬라이더 패널
+        buttonDecrease = GameObject.Find("Button_Decrease").GetComponent<Button>();
+        buttonIncrease = GameObject.Find("Button_Increase").GetComponent<Button>();
+        textAmountOfGoods = GameObject.Find("Text_Amount_of_Goods").GetComponent<Text>();
         changeWindowPanel = GameObject.Find("Change_Window");
+
         btnMap = GameObject.Find("Button_Map");
         btnBook = GameObject.Find("Button_Book");
+
+        warningWindow = GameObject.Find("Warning Window");
+
         workerScript = FindAnyObjectByType<WorkerScript>();
         structerController = FindAnyObjectByType<StructerController>();
         _notice = FindAnyObjectByType<NoticeUI>();
