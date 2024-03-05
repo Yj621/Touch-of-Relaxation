@@ -64,7 +64,6 @@ public class UIController : MonoBehaviour
 
     [Header("진척도 패널")]
     public Image progressGage;
-
     public List<GameObject> structerList;
 
     private void Awake()
@@ -300,20 +299,24 @@ public class UIController : MonoBehaviour
     {
         int amount = (int)slider.value; // Slider의 값을 정수로 변환
 
-        if (playerData.UnitValue((int)Unit.ENERGY, unitIndex) >= amount)
+        if (amount >= 1) // amount가 1 이상인 경우에만 실행
         {
-            playerData.SetUnitValue((int)Unit.ENERGY, -amount, unitIndex);
-            playerData.SetUnitValue((int)Unit.GOLD, amount, unitIndex);
-            _notice.SUB("변환되었습니다.");
+            if (playerData.UnitValue((int)Unit.ENERGY, unitIndex) >= amount)
+            {
+                playerData.SetUnitValue((int)Unit.ENERGY, -amount, unitIndex);
+                playerData.SetUnitValue((int)Unit.GOLD, amount, unitIndex);
+                _notice.SUB("변환되었습니다.");
+            }
+            else if (playerData.UnitValue((int)Unit.ENERGY, unitIndex) < amount)
+            {
+                _notice.SUB("에너지가 부족합니다.");
+            }
+            slider.value = 0;
+            unitIndex = 0;
+            slider.maxValue = playerData.UnitValue((int)Unit.ENERGY, unitIndex);
         }
-        else if (playerData.UnitValue((int)Unit.ENERGY, unitIndex) < amount)
-        {
-            _notice.SUB("에너지가 부족합니다.");
-        }
-        slider.value = 0;
-        unitIndex = 0;
-        slider.maxValue = playerData.UnitValue((int)Unit.ENERGY, unitIndex);
     }
+
 
     //초기화 버튼 클릭
     public void CancleButtonClick()
