@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18299967, g: 0.22868471, b: 0.30678773, a: 1}
+  m_IndirectSpecularColor: {r: 0.183, g: 0.22868529, b: 0.30678868, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -36618,6 +36618,9 @@ MonoBehaviour:
   isGoldButtonClicked: 0
   isPanelOn: 0
   slider: {fileID: 932184204}
+  buttonDecrease: {fileID: 1514918276}
+  buttonIncrease: {fileID: 760200733}
+  textAmountOfGoods: {fileID: 1738261}
   goldText: {fileID: 1908603250}
   diaText: {fileID: 1526329285}
   garbage: {fileID: 236795736}

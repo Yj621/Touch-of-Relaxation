@@ -45,9 +45,9 @@ public class UIController : MonoBehaviour
 
     [Header("slider 패널")]
     public Slider slider;
-    private Button buttonDecrease;
-    private Button buttonIncrease;
-    private Text textAmountOfGoods;
+    public Button buttonDecrease;
+    public Button buttonIncrease;
+    public Text textAmountOfGoods;
     public Text goldText; // coin_text UI를 연결해줄 변수
     public Text diaText;
     public Text garbage;
@@ -100,9 +100,6 @@ public class UIController : MonoBehaviour
         startRotation = menuImg.transform.rotation;
 
         //슬라이더 패널
-        buttonDecrease = GameObject.Find("Button_Decrease").GetComponent<Button>();
-        buttonIncrease = GameObject.Find("Button_Increase").GetComponent<Button>();
-        textAmountOfGoods = GameObject.Find("Text_Amount_of_Goods").GetComponent<Text>();
         changeWindowPanel = GameObject.Find("Change_Window");
 
         btnMap = GameObject.Find("Button_Map");
