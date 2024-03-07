@@ -351,7 +351,7 @@ public class UIController : MonoBehaviour
     {
         if (!sets[index].buttonClicked)
         {
-            playerData.SetUnitValue((int)Unit.DIAMOND, +1000);
+            playerData.SetUnitValue((int)Unit.DIAMOND, +20);
             sets[index].buttonClicked = true;
             sets[index].button.interactable = false;
         }
