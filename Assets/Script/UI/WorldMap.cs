@@ -23,14 +23,47 @@ public class WorldMap : MonoBehaviour
 
     private void Update()
     {
-        
+        if (DataManager.instance.player.ConfirmGage("Forest") >= 0.5f)
+        {
+            for (int i = 0; i < worldImage.Length; ++i)
+            {
+                worldImage[7].color = Color.white;
+            }
+        }
+        if (DataManager.instance.player.ConfirmGage("CITY") >= 0.5f)
+        {
+            for (int i = 0; i < worldImage.Length; ++i)
+            {
+                worldImage[1].color = Color.white;
+            }
+        }
+        if (DataManager.instance.player.ConfirmGage("COUNTRY") >= 0.5f)
+        {
+            for (int i = 0; i < worldImage.Length; ++i)
+            {
+                worldImage[5].color = Color.white;
+            }
+        }
+        if (DataManager.instance.player.ConfirmGage("SEA") >= 0.5f)
+        {
+            for (int i = 0; i < worldImage.Length; ++i)
+            {
+                worldImage[6].color = Color.white;
+            }
+        }
     }
 
     void WorldImageColor()
     {
         for (int i = 0; i < worldImage.Length; ++i)
         {
-            worldImage[i].color = Color.black;
+            worldImage[0].color = new Color(0.5f, 0.5f, 0.5f);
+            worldImage[1].color = new Color(0.5f, 0.5f, 0.5f);
+            worldImage[2].color = new Color(0.5f, 0.5f, 0.5f);
+            worldImage[4].color = new Color(0.5f, 0.5f, 0.5f);
+            worldImage[5].color = new Color(0.5f, 0.5f, 0.5f);
+            worldImage[6].color = new Color(0.5f, 0.5f, 0.5f);
+            worldImage[7].color = new Color(0.5f, 0.5f, 0.5f);
         }
     }
 
@@ -45,7 +78,7 @@ public class WorldMap : MonoBehaviour
     {
         for (int i = 0; i < mapWindowChildren.Length; ++i)
         {
-            mapWindowChildren[i].SetActive(true);
+            mapWindowChildren[i].SetActive(false);
         }
     }
 

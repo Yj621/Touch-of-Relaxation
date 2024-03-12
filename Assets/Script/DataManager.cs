@@ -51,6 +51,9 @@ public class PlayerData
         _energy[0] = 10100;
         _garbage[0] = 10100;
         _gold[0] = 10100;
+
+
+
     }
 
     public int[] Gold()

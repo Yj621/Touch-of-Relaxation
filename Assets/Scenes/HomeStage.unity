@@ -2215,8 +2215,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 844985916}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+      - m_Target: {fileID: 430824670}
+        m_TargetAssemblyTypeName: WorldMap, Assembly-CSharp
         m_MethodName: OnBtnVillage
         m_Mode: 1
         m_Arguments:
@@ -12908,7 +12908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &430824669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12942,7 +12942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapWindowChildren:
-  - {fileID: 1585604908}
+  - {fileID: 430824668}
   worldImage:
   - {fileID: 685130369}
   - {fileID: 676796779}
@@ -16423,7 +16423,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: cb37964f4175f7b439e9c36c26861f67, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -26149,8 +26149,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 844985916}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+      - m_Target: {fileID: 430824670}
+        m_TargetAssemblyTypeName: WorldMap, Assembly-CSharp
         m_MethodName: OnBtnCountry
         m_Mode: 1
         m_Arguments:
@@ -34225,8 +34225,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 844985916}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+      - m_Target: {fileID: 430824670}
+        m_TargetAssemblyTypeName: WorldMap, Assembly-CSharp
         m_MethodName: OnBtnSea
         m_Mode: 1
         m_Arguments:
@@ -41526,8 +41526,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 844985916}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+      - m_Target: {fileID: 430824670}
+        m_TargetAssemblyTypeName: WorldMap, Assembly-CSharp
         m_MethodName: OnBtnCity
         m_Mode: 1
         m_Arguments:
@@ -66861,10 +66861,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 430824668}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 430824670}
+        m_TargetAssemblyTypeName: WorldMap, Assembly-CSharp
+        m_MethodName: OnBtnMapClose
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -81637,7 +81637,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b83b479c9ecab1d42b8938669dbd194a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
