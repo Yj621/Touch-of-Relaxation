@@ -37372,6 +37372,7 @@ MonoBehaviour:
   isMenuDown: 0
   energyText: {fileID: 281813379}
   bookWindow: {fileID: 1285954949}
+  changeWindowPanel: {fileID: 1105007325}
   isGoldButtonClicked: 0
   isPanelOn: 0
   slider: {fileID: 932184204}
@@ -37381,6 +37382,7 @@ MonoBehaviour:
   goldText: {fileID: 1908603250}
   diaText: {fileID: 1526329285}
   garbage: {fileID: 236795736}
+  warningWindow: {fileID: 661343690}
   windowTitle: {fileID: 108226023}
   unitIndex: 0
   buttons:
@@ -76447,8 +76449,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -640, y: -1351.1108}
+  m_AnchoredPosition: {x: 0, y: -1.5001221}
+  m_SizeDelta: {x: -640, y: -1313.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1457423257
 MonoBehaviour:

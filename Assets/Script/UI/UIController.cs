@@ -39,7 +39,7 @@ public class UIController : MonoBehaviour
     public GameObject bookWindow;
 
     [Header("골드 변환 패널")]
-    private GameObject changeWindowPanel;
+    public GameObject changeWindowPanel;
     public bool isGoldButtonClicked = false;
     public bool isPanelOn = false;
 
@@ -51,7 +51,7 @@ public class UIController : MonoBehaviour
     public Text goldText; // coin_text UI를 연결해줄 변수
     public Text diaText;
     public Text garbage;
-    private GameObject warningWindow;
+    public GameObject warningWindow;
     public GameObject windowTitle;
     public int unitIndex;
 
@@ -100,12 +100,8 @@ public class UIController : MonoBehaviour
         startRotation = menuImg.transform.rotation;
 
         //슬라이더 패널
-        changeWindowPanel = GameObject.Find("Change_Window");
-
         btnMap = GameObject.Find("Button_Map");
         btnBook = GameObject.Find("Button_Book");
-
-        warningWindow = GameObject.Find("Warning Window");
 
         workerScript = FindAnyObjectByType<WorkerScript>();
         structerController = FindAnyObjectByType<StructerController>();
