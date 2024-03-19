@@ -230,6 +230,11 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene("StageScene");
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
 
     #endregion 버튼 관련 함수들
 
@@ -357,6 +362,26 @@ public class UIController : MonoBehaviour
     {
         sets[index].button.interactable = true;
     }
+
+    //골드<->다이아 변환
+    // public void ConvertGoldToDiamond()
+    // {
+    //     if (playerData.UnitValue((int)Unit.GOLD, 1) >= 1)
+    //     {
+    //         // GOLD 1 감소
+    //         playerData.SetUnitValue((int)Unit.GOLD, -1, 1);
+    //         // DIAMOND 100 증가
+    //         playerData.SetUnitValue((int)Unit.DIAMOND, +100);
+    //         // 변환 성공 메시지 출력
+    //         Debug.Log("GOLD 1 소모 및 DIAMOND 100 획득");
+    //     }
+    //     else
+    //     {
+    //         // GOLD가 부족한 경우 메시지 출력
+    //         Debug.Log("GOLD가 부족합니다.");
+    //     }
+    // }
+
 
     // SetItem 클래스 정의
     private class SetItem
