@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
 {
     private GameObject[] garbageSpawnPoints;
     private GameObject[] garbages;
+
+    public GameObject[] garbageDelete;
 
     private float spawnRadius;
     private PlayerData playerData;
@@ -65,6 +68,41 @@ public class GameManager : MonoBehaviour
                 spawnedObject.transform.localScale = new Vector3(5f, 5f, 5f);
             }
         }
+        if (SceneManager.GetActiveScene().name == "ForestStage")
+        {
+            if (DataManager.instance.player.ConfirmGage("Forest") >= 0.3f)
+            {
+                for (int i = 0; i < garbageDelete.Length; i++)
+                {
+                    garbageDelete[0].gameObject.SetActive(false);
+                    garbageDelete[2].gameObject.SetActive(false);
+                    garbageDelete[4].gameObject.SetActive(false);
+                }
+            }
+            if (DataManager.instance.player.ConfirmGage("Forest") >= 0.5f)
+            {
+                for (int i = 0; i < garbageDelete.Length; i++)
+                {
+                    garbageDelete[1].gameObject.SetActive(false);
+                    garbageDelete[3].gameObject.SetActive(false);
+                    garbageDelete[5].gameObject.SetActive(false);
+                    garbageDelete[7].gameObject.SetActive(false);
+                }
+            }
+            if (DataManager.instance.player.ConfirmGage("Forest") >= 1.0f)
+            {
+                for (int i = 0; i < garbageDelete.Length; i++)
+                {
+                    garbageDelete[6].gameObject.SetActive(false);
+                    garbageDelete[8].gameObject.SetActive(false);
+                    garbageDelete[9].gameObject.SetActive(false);
+                    garbageDelete[10].gameObject.SetActive(false);
+                }
+            }
+        }
+
+        
+
     }
 
 

@@ -52,7 +52,10 @@ public class PlayerData
         _garbage[0] = 10100;
         _gold[0] = 10100;
 
-
+        for (int i = 0; i < 6; i++)
+        {
+            _stageGage[1] = 0.3f;
+        }
 
     }
 
@@ -259,28 +262,48 @@ public class PlayerData
         }
         if (s == "CITY")
         {
-            index = (int)StageNum.FOREST;
+            index = (int)StageNum.CITY;
         }
         if (s == "COUNTRY")
         {
-            index = (int)StageNum.FOREST;
+            index = (int)StageNum.COUNTRY;
         }
         if (s == "SEA")
         {
-            index = (int)StageNum.FOREST;
+            index = (int)StageNum.SEA;
         }
         if (s == "VILLAGE")
         {
-            index = (int)StageNum.FOREST;
+            index = (int)StageNum.VILLAGE;
         }
         return _stageGage[index];
     }
     public void IncreaseGage(string s , int val)
     {
         int index = 0;
-        if(s== "Main")
+        if (s == "Main")
         {
             index = (int)StageNum.MAIN;
+        }
+        if (s == "Forest")
+        {
+            index = (int)StageNum.FOREST;
+        }
+        if (s == "CITY")
+        {
+            index = (int)StageNum.CITY;
+        }
+        if (s == "COUNTRY")
+        {
+            index = (int)StageNum.COUNTRY;
+        }
+        if (s == "SEA")
+        {
+            index = (int)StageNum.SEA;
+        }
+        if (s == "VILLAGE")
+        {
+            index = (int)StageNum.VILLAGE;
         }
         _stageGage[index] += (float)(val / 100000.0f);
     }
