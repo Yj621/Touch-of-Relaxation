@@ -87,7 +87,7 @@ public class UIController : MonoBehaviour
     private void Start()
     {
         playerData = DataManager.instance.player;
-        
+
         //메뉴 패널
         panelConstruction = GameObject.Find("Panel_Construction");
         panelAbility = GameObject.Find("Panel_Ability");
@@ -363,24 +363,52 @@ public class UIController : MonoBehaviour
         sets[index].button.interactable = true;
     }
 
-    //골드<->다이아 변환
-    // public void ConvertGoldToDiamond()
+    // // 다이아 -> 골드 변환
+    // public void ConvertDiamondToGold()
     // {
-    //     if (playerData.UnitValue((int)Unit.GOLD, 1) >= 1)
+    //     int diamondAmount = playerData.UnitValue((int)Unit.DIAMOND);
+    //     int exchangeRate = 100 * diamondAmount;
+
+    //     // 현재 가지고 있는 다이아의 양을 확인하여 해당 양으로 변환 가능한지 확인
+    //     if (diamondAmount > 0)
     //     {
-    //         // GOLD 1 감소
-    //         playerData.SetUnitValue((int)Unit.GOLD, -1, 1);
-    //         // DIAMOND 100 증가
-    //         playerData.SetUnitValue((int)Unit.DIAMOND, +100);
+    //         // DIAMOND 감소
+    //         playerData.SetUnitValue((int)Unit.DIAMOND, -diamondAmount);
+    //         // 해당 단위의 골드 증가
+    //         playerData.SetUnitValue((int)Unit.GOLD, exchangeRate);
     //         // 변환 성공 메시지 출력
-    //         Debug.Log("GOLD 1 소모 및 DIAMOND 100 획득");
+    //         Debug.Log("DIAMOND " + diamondAmount + " 소모 및 GOLD " + exchangeRate + " 획득");
     //     }
     //     else
     //     {
-    //         // GOLD가 부족한 경우 메시지 출력
+    //         // 다이아가 부족한 경우 메시지 출력
+    //         Debug.Log("DIAMOND가 부족합니다.");
+    //     }
+    // }
+
+    // // 골드 -> 다이아 변환
+    // public void ConvertGoldToDiamond()
+    // {
+    //     int goldAmount = playerData.UnitValue((int)Unit.GOLD);
+    //     int diamondAmount = goldAmount / 100;
+
+    //     // 현재 가지고 있는 골드의 양을 확인하여 해당 양으로 변환 가능한지 확인
+    //     if (diamondAmount > 0)
+    //     {
+    //         // GOLD 감소
+    //         playerData.SetUnitValue((int)Unit.GOLD, -goldAmount);
+    //         // DIAMOND 증가
+    //         playerData.SetUnitValue((int)Unit.DIAMOND, diamondAmount);
+    //         // 변환 성공 메시지 출력
+    //         Debug.Log("GOLD " + goldAmount + " 소모 및 DIAMOND " + diamondAmount + " 획득");
+    //     }
+    //     else
+    //     {
+    //         // 골드가 부족한 경우 메시지 출력
     //         Debug.Log("GOLD가 부족합니다.");
     //     }
     // }
+
 
 
     // SetItem 클래스 정의
