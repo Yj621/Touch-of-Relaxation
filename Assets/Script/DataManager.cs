@@ -52,10 +52,10 @@ public class PlayerData
         _garbage[0] = 10100;
         _gold[0] = 10100;
 
-        for (int i = 0; i < 6; i++)
+       /*for (int i = 0; i < 6; i++)
         {
-            _stageGage[1] = 0.3f;
-        }
+            _stageGage[1] = 0.8f;
+        }*/
 
     }
 

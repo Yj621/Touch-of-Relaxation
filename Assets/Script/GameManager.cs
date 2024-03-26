@@ -68,40 +68,51 @@ public class GameManager : MonoBehaviour
                 spawnedObject.transform.localScale = new Vector3(5f, 5f, 5f);
             }
         }
-        if (SceneManager.GetActiveScene().name == "ForestStage")
+
+        List<int> indexesToDelete = new List<int>();
+        double gage = 0.0f;
+
+        switch (SceneManager.GetActiveScene().name)
         {
-            if (DataManager.instance.player.ConfirmGage("Forest") >= 0.3f)
+            case "ForestStage":
+                gage = DataManager.instance.player.ConfirmGage("Forest");
+                break;
+            case "CityStage":
+                gage = DataManager.instance.player.ConfirmGage("CITY");
+                break;
+            case "CountrySideStage":
+                gage = DataManager.instance.player.ConfirmGage("COUNTRY");
+                break;
+            case "SeaStage":
+                gage = DataManager.instance.player.ConfirmGage("SEA");
+                break;
+            case "VillageStage":
+                gage = DataManager.instance.player.ConfirmGage("VILLAGE");
+                break;
+        }
+
+        if (gage >= 0.3f)
+        {
+            indexesToDelete.AddRange(new int[] { 0, 2, 4 });
+        }
+        if (gage >= 0.5f)
+        {
+            indexesToDelete.AddRange(new int[] { 1, 3, 5, 7 });
+        }
+        if (gage >= 1.0f)
+        {
+            indexesToDelete.AddRange(new int[] { 6, 8, 9, 10 });
+        }
+
+        foreach (int index in indexesToDelete)
+        {
+            if (index < garbageDelete.Length)
             {
-                for (int i = 0; i < garbageDelete.Length; i++)
-                {
-                    garbageDelete[0].gameObject.SetActive(false);
-                    garbageDelete[2].gameObject.SetActive(false);
-                    garbageDelete[4].gameObject.SetActive(false);
-                }
-            }
-            if (DataManager.instance.player.ConfirmGage("Forest") >= 0.5f)
-            {
-                for (int i = 0; i < garbageDelete.Length; i++)
-                {
-                    garbageDelete[1].gameObject.SetActive(false);
-                    garbageDelete[3].gameObject.SetActive(false);
-                    garbageDelete[5].gameObject.SetActive(false);
-                    garbageDelete[7].gameObject.SetActive(false);
-                }
-            }
-            if (DataManager.instance.player.ConfirmGage("Forest") >= 1.0f)
-            {
-                for (int i = 0; i < garbageDelete.Length; i++)
-                {
-                    garbageDelete[6].gameObject.SetActive(false);
-                    garbageDelete[8].gameObject.SetActive(false);
-                    garbageDelete[9].gameObject.SetActive(false);
-                    garbageDelete[10].gameObject.SetActive(false);
-                }
+                garbageDelete[index].gameObject.SetActive(false);
             }
         }
 
-        
+
 
     }
 
