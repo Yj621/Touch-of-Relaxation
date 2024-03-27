@@ -12,7 +12,7 @@ public class StructerController : MonoBehaviour
     NoticeUI                    _notice;
     UIController                uIController;
     public List<GameObject>     structerGameObjectList;     // 건물 건설용도로 선언한 게임 오브젝트 리스트
-    private List<Structer>      structerScriptList;         // 건물 3개의 정보만 관리하기 윈한 스크립트 변수
+    private List<Structer>      structerScriptList;         // 건물 3개의 정보만 관리하기 위한 스크립트 변수
     int[]                       needGold;
     int[]                       needGarbage;
 
