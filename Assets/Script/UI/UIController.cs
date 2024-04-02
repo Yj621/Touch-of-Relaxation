@@ -133,6 +133,7 @@ public class UIController : MonoBehaviour
         progressGage.fillAmount = (float)DataManager.instance.player.ConfirmGage("CITY");
         progressGage.fillAmount = (float)DataManager.instance.player.ConfirmGage("COUNTRY");
         progressGage.fillAmount = (float)DataManager.instance.player.ConfirmGage("SEA");
+        progressGage.fillAmount = (float)DataManager.instance.player.ConfirmGage("VILLAGE");
 
         garbage.text = playerData.MyUnitToString((int)Unit.GARBAGE).ToString();
         energyText.text = playerData.MyUnitToString((int)Unit.ENERGY).ToString();
