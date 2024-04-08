@@ -18,6 +18,10 @@ public class StructerController : MonoBehaviour
 
     private int                 currentBuildingIndex = 0;
 
+    public AudioClip buildSound; // 건물 건설 시 재생할 효과음
+
+    private AudioSource audioSource; // 효과음을 재생할 AudioSource 컴포넌트
+
 
     void Start()
     {
@@ -35,6 +39,13 @@ public class StructerController : MonoBehaviour
         {
             structerScriptList.Add(structerGameObjectList[i].GetComponent<Structer>());
         }
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
     }
     private void Update()
     {
@@ -68,6 +79,11 @@ public class StructerController : MonoBehaviour
 
             // 건물 활성화
             ActivateBuilding(nowStructer.GetLevel(), clickNum);
+
+            if (buildSound != null)
+            {
+                audioSource.PlayOneShot(buildSound);
+            }
         }
         else
         {

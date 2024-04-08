@@ -6506,10 +6506,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dc25d60a4f6414b8fd7a438ea52e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelConstruction: {fileID: 713493664}
-  panelAbility: {fileID: 1118374376}
-  panelTool: {fileID: 168842019}
-  panelStore: {fileID: 2092058215}
+  goldText1: {fileID: 0}
+  goldText2: {fileID: 0}
+  isMenuDown: 0
+  energyText: {fileID: 0}
+  bookWindow: {fileID: 0}
+  changeWindowPanel: {fileID: 0}
+  isGoldButtonClicked: 0
+  isPanelOn: 0
+  slider: {fileID: 0}
+  buttonDecrease: {fileID: 0}
+  buttonIncrease: {fileID: 0}
+  textAmountOfGoods: {fileID: 0}
+  goldText: {fileID: 0}
+  diaText: {fileID: 0}
+  garbage: {fileID: 0}
+  warningWindow: {fileID: 0}
+  windowTitle: {fileID: 0}
+  unitIndex: 0
+  buttons: []
+  change_img: {fileID: 0}
+  progressGage: {fileID: 0}
+  structerList: []
 --- !u!4 &2139223870
 Transform:
   m_ObjectHideFlags: 0
