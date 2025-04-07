@@ -123,7 +123,7 @@
 
 | 기본 UI | 맵 UI | 도감 UI | 
 | :---: | :---: | :---: | 
-| ![image](https://github.com/user-attachments/assets/74630d17-9da0-4e0c-8f95-7ae576850b02)| ![image](https://github.com/user-attachments/assets/ca3b6f81-44ee-4c76-bfaf-be26ba90ccae) | 
+| ![image](https://github.com/user-attachments/assets/74630d17-9da0-4e0c-8f95-7ae576850b02)| ![image](https://github.com/user-attachments/assets/ca3b6f81-44ee-4c76-bfaf-be26ba90ccae)| ![image](https://github.com/user-attachments/assets/135541dd-ba20-42fc-8af1-be557f9f8038) |
 | 메뉴 패널 및 재화 바 | 진행도마다 해금되는 맵 | 일정 확률로 등록되는 쓰레기 도감 | 
 
 ## 🗣️ 느낀점
