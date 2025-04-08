@@ -14,7 +14,9 @@
 
 플레이 영상
 
-[![썸네일](https://github.com/user-attachments/assets/7f94ac33-200c-42fc-8833-d950ca7222c1)](https://youtu.be/YP4jrPnTRBs)
+<a href="https://youtu.be/YP4jrPnTRBs">
+    <img src="https://github.com/user-attachments/assets/7f94ac33-200c-42fc-8833-d950ca7222c1" alt="썸네일" width="200">
+</a>
 
 ### 💡 장르
 
