@@ -40,7 +40,7 @@
 
 <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">
 
-## 
+
 
 ### 👩‍💻  **팀 구성원 및 역할**
 
